@@ -146,15 +146,18 @@ footer{
     background-color: #1f2229;
     justify-content: space-between;
     align-items: center;
-    padding: 100px 200px 80px;
+    padding: 10vw 5vw 1vw;
 }
 .roles div{
     width: 300px;
     text-align: center;
+    display: block;
 }
 .roles img{
-    width: 100%;
-    border-radius: 8px;
+    width: 20vw;
+    height: 20vw;
+    object-fit: cover;
+    border-radius: 12px;
 }
 .roles p{
     color: #fadebd;
