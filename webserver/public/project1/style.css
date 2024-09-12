@@ -73,7 +73,7 @@ header img{
     flex-direction: column;
     align-items: center;
 }
-.news{
+.maincontent{
     background-color: #1f2229;
     color:#fadebd;
     height: 30vh;
@@ -81,16 +81,16 @@ header img{
     flex-direction: column;
     align-items: center;
 }
-.news h2{
+.maincontent h2{
     margin-top: 60px;
     font-size: 80px;
 }
-.news p{
+.maincontent p{
     color:#fadebd;
     font-size: 30px;
     margin: 25px 0;
 }
-.news a{
+.maincontent a{
     color: #fadebd;
     text-decoration: none;
     border: 1px solid aquamarine;
@@ -105,7 +105,7 @@ header img{
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 25px;
+    font-size: 30px;
     line-height: 1.8em;
 }
 footer{
@@ -124,6 +124,15 @@ footer{
     width: 50vw;
     height: 50vw;
     object-fit: cover;
+}
+.persona a{
+    font-size: 35px;
+    color: aquamarine;
+    text-decoration-line: none;
+}
+.persona a:hover {
+    color: #fadebd;
+    text-decoration-line: underline;
 }
 .info{
     width: 50%;
@@ -173,4 +182,87 @@ footer{
 .about img{
     width: 25%;
     object-fit: cover;
+}
+.works{
+    padding: 0vw 1vw 1vw;
+    display: flex;
+    text-align: center;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #1f2229;
+}
+.works iframe{
+    width: 100%;
+    height: 50vh;
+    vertical-align: bottom;
+}
+.works div{
+    width: 100%;
+    text-align: center;
+}
+.works p{
+    color: #fadebd;
+    text-align: center;
+    font-size: 25px;
+    line-height: 2em;
+}
+.works a{
+    font-size: 35px;
+    color: aquamarine;
+    text-decoration-line: none;
+}
+.works a:hover {
+    color: #fadebd;
+    text-decoration-line: underline;
+}
+.cargo{
+    display: block;
+    text-align: center;
+    background-color: #1f2229;
+}
+.cargo iframe{
+    text-align: center;
+    width: 100%;
+    height: 75vh;
+    vertical-align: bottom;
+}
+.cargo h2{
+    color: #fadebd;
+    font-size: 40px;
+    padding: 3vw 2vh
+}
+.vimeo{
+    padding: 0vw 1vw 1vw;
+    margin: 0;
+    align-items: center;
+    display: block;
+    text-align: center;
+    background-color: #1f2229;
+    color: #fadebd;
+    text-align: center;
+    font-size: 25px;
+    line-height: 2em;
+}
+.vimeo iframe{
+    margin: 0;
+    width: 65%;
+    height: 50vh;
+}
+.img1{
+    display: flex;
+    background-color: #1f2229;
+    text-align: center;
+    justify-content: space-evenly;
+}
+.img1 img{
+    width: 33vw;
+    height: 25vw;
+    object-fit: cover;
+}
+.img1 h2{
+    padding: 2vw
+}
+.img1 p{
+    font-size: 22px;
+    padding: 0vw 1vw 1vw;
 }
