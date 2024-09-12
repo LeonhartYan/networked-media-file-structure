@@ -121,7 +121,9 @@ footer{
     display: flex;
 }
 .persona img{
-    width: 50%;
+    width: 50vw;
+    height: 50vw;
+    object-fit: cover;
 }
 .info{
     width: 50%;
@@ -146,16 +148,16 @@ footer{
     background-color: #1f2229;
     justify-content: space-between;
     align-items: center;
-    padding: 10vw 5vw 1vw;
+    padding: 10vw 5vw 8vw;
 }
 .roles div{
-    width: 300px;
+    width: 100%;
     text-align: center;
     display: block;
 }
 .roles img{
-    width: 20vw;
-    height: 20vw;
+    width: 25vw;
+    height: 25vw;
     object-fit: cover;
     border-radius: 12px;
 }
@@ -170,4 +172,5 @@ footer{
 }
 .about img{
     width: 25%;
+    object-fit: cover;
 }
