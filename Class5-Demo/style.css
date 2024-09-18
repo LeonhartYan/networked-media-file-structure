@@ -1,0 +1,9 @@
+.text-body{
+    background-color: aquamarine;
+    color: azure;
+    font-size: 32px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    padding: 10px 15px;
+    line-height: 60px;
+    width: 1000px;
+}
