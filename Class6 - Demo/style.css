@@ -1,7 +1,17 @@
 .container{
+    opacity: 1;
     height: 220px;
     background-color: aqua;
     margin-top: 1px;
+    transition: opacity 1s ease-in;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex-grow: 3;
+}
+
+.rotate{
+    flex-grow: 3;
 }
 
 p{
