@@ -1,0 +1,24 @@
+.container{
+    opacity: 1;
+    height: 220px;
+    margin-top: 1px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex-grow: 3;
+}
+
+.rotate{
+    flex-grow: 3;
+}
+
+p{
+    width: 50%;
+}
+
+body{
+    height: 100vh; /*100%*/
+    margin: 0;
+    /*overflow: hidden;*/
+
+}
