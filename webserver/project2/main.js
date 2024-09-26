@@ -1,22 +1,28 @@
+let next
 window.onload = () => {
-    pomodoro()
-    setInterval(pomodoro, 1000)
-    setInterval(timer, 1000)
+    const now = new Date();
+    next = new Date(now.getTime() + 1500000);
+    countdown = setInterval(pomodoro, 1000)
 }
 
 function pomodoro() {
     const now = new Date()
-    const next = new Date(now.getTime() + 1500000)
+    const next_timer = new Date(now.getTime() + 1500000);
     const nowString = now.toLocaleTimeString();
-    const nextString = next.toLocaleTimeString();
+    const nextString = next_timer.toLocaleTimeString();
     document.getElementById('current-time').textContent = nowString;
     document.getElementById('next-time').textContent = nextString;
+    timer(now);
 }
 
-function timer() {
-    let now_timer = new Date();
-    let next_timer = new Date(now_timer.getTime() + 1500000);
-    let interval = (next_timer - now_timer) / 1000;
+function timer(now_timer) {
+    let interval = (next - now_timer) / 1000;
+    if (interval <= 0) {
+        document.getElementById('timer').textContent = '00:00';
+        clearInterval(countdown);
+        return;
+    }
+
     let second = Math.floor(interval % 60);
     let minute = Math.floor((interval / 60) % 60);
     let hour = Math.floor((interval / 60 / 60) % 24);
