@@ -8,9 +8,10 @@ var app = express();
 app.use(express.static('public'));
 
 // Create a test endpoint; This is not required, but it allows us to verify whether the server is working.
-app.get('/test', function (req, res) {
+app.get('/', function (req, res) {
   res.send('Hello World!')
 });
+
 
 // And finally start the server. We start the server on port 80, which is the default port for http.
 // If you want to learn more about ports, read this: https://www.cloudflare.com/learning/network-layer/what-is-a-computer-port/
