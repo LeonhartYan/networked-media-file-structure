@@ -20,11 +20,15 @@ app.get('/', (req, res)=>{
 let allPosts = []
 app.post('/upload', uploadProcessor.single('image'), (req, res)=>{
     console.log(req.body)
+    console.log(req.body.caption)
     let now = new Date()
     let post = {
         cap: req.body.caption,
         date: now.toLocaleDateString(),
     }
+    if (req.file) {
+        console.log(req.file.filename);
+      }
     allPosts.push(post)
     res.redirect('/')
 })
