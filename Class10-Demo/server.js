@@ -33,6 +33,7 @@ app.get('/submit', (req, res)=>{
 
 app.get('/template', (req, res)=>{
   const data = {
+
     message: [{note:"hello"},
     {visible: true, note:"hello"},
     {visible: false, note:"hello"},
@@ -53,5 +54,5 @@ app.get('/notes', (req, res) =>{
 // And finally start the server. We start the server on port 80, which is the default port for http.
 // If you want to learn more about ports, read this: https://www.cloudflare.com/learning/network-layer/what-is-a-computer-port/
 app.listen(8080, function () {
-  console.log('Example app listening on port 80!')
+  console.log('Example app listening on port 8080!')
 });

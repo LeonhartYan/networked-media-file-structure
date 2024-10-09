@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EJS Class11</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <div class="input-container">
+            <form method="POST" action="/upload">
+                <input type="text" name="title">
+                <div class="controls-container">
+                    <input type="submit" name="submitButton" value="Submit Image">
+                    <input type="file" name="image" value="Select Image">
+                </div>
+            </form>
+        </div>
+        <div class="message-container">
+            <div><% posts.forEach( (singlePost)=> { %> </div>
+                <div class="title"><%= singlePost.title %></div>
+                <div class="caption"><%= singlePost.cap %></div>
+                <div class="date"><%= singlePost.date %></div>
+            <% }) %>
+            <%  %>
+            <%  %>
+            <%  %>
+        </div>
+    </div>
+    
+</body>
+</html>
