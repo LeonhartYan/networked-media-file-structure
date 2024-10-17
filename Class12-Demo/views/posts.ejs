@@ -1,0 +1,34 @@
+<!DOCTYPE ejs>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Posts</title>
+</head>
+<body>
+    <div class="app-container">
+        <%- include("nav.ejs", {}) %>
+        <% for(let i = 0; i < arrayToBeSent.length; i++){ %>
+            <div class="message-item">
+                <!--delete-->
+                <form method="GET" action="/delete">
+                    <input type="submit" value="❌">
+                    <input type="hidden" name="post-id" value="<%= arrayToBeSent[i].postNumber %>">
+                </form>
+                <!--different containers iterate within for loop-->
+                <div class="date">
+                    <%= arrayToBeSent[i].date %>
+                </div>
+                <div class="message">
+                    <%= arrayToBeSent[i].text %>
+                </div>
+                <% if(arrayToBeSent[i].imgSrc) %>
+                <div class="item-image">
+                    <img src="<%= arrayToBeSent[i].imgSrc %>" alt="<%= arrayToBeSent[i].text %>">
+                </div>
+            </div>
+            <% } %>
+      </div>
+</body>
+</html>
