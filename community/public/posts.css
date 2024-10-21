@@ -1,0 +1,460 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+@font-face {
+    font-family: "Afacad Flux", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 500;
+    font-style: normal;
+    font-variation-settings:
+        "slnt" 0;
+    src: url('https://fonts.googleapis.com/css2?family=Afacad+Flux:wght@100..1000&family=ZCOOL+XiaoWei&display=swap');
+    unicode-range: U+30-39;
+}
+
+@font-face {
+    font-family: "ZCOOL XiaoWei", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    src: url('https://fonts.googleapis.com/css2?family=Afacad+Flux:wght@100..1000&family=ZCOOL+XiaoWei&display=swap');
+    unicode-range: U+2018, U+2019, U+201C, U+201D; 
+}
+
+
+a {
+    text-decoration-line: none;
+    color: inherit;
+}
+
+body {
+    font-family: "Afacad Flux", "ZCOOL XiaoWei", sans-serif;
+    font-weight: 500;
+    font-style: normal;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0;
+    height: 100%;
+    transition: background-color 1s ease;
+    background-color: #2D313B;
+    border: 1px solid #ff0019;
+
+}
+
+.nav-container {
+    border: 1px solid #FF6978;
+    background-color: rgb(7, 18, 33, 0.8);
+    height: 10vh;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.nav-container .logo {
+    width: 40%;
+    border: 1px solid #FF6978;
+    padding-left: 3%;
+    display: flex;
+    align-items: center;
+    color: #fadebd;
+}
+
+.nav-container .logo h1 {
+    font-size: 2vw;
+}
+
+.nav-container .logo img {
+    max-width: 8%;
+    max-height: 10%;
+    object-fit: cover;
+}
+
+.nav-container .headerLinks {
+    width: 40%;
+    height: auto;
+    border: 1px solid #ff0019;
+    overflow: hidden;
+    color: #fadebd;
+    display: flex;
+    justify-content: center;
+    line-height: 4vh;
+    text-align: center;
+    align-items: center;
+    transition: background-color 1s ease, font-size 0.35s ease, color 0.25s ease;
+}
+
+.nav-container .links {
+    display: inline-flex;
+    width: 6vw;
+    height: 2vw;
+    overflow: hidden;
+    /* border: 1px solid #FF6978; */
+    margin-left: 4vw;
+    line-height: 2vw;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+
+}
+
+.nav-container .headerLinks:hover {
+    color: #2D313B;
+}
+
+.nav-container .links p {
+    size: 10vw;
+    font-size: 1.3vw;
+    text-decoration-line: none;
+    transition: background-color 1s ease, font-size 0.35s ease, color 0.25s ease;
+}
+
+.nav-container p:hover {
+
+    color: #ffebd5;
+    font-size: 1.75vw;
+}
+
+.nav-container ul {
+    position: absolute;
+    right: 5vw;
+    top: 0;
+    line-height: 120px;
+}
+
+.main-container {
+    border: 1px solid green;
+    margin-top: 15vh;
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    width: 75vw;
+    height: 40vh;
+    max-height: 40vh;
+    background-color: #1f2229;
+    color: #fadebd;
+    padding: 5% 5%;
+    border-radius: 3vw;
+    transition: background-color 1s ease, font-size 0.35s ease, color 0.25s ease;
+
+}
+.app-container {
+    border: 1px solid orange;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
+    font-size: 2vw;
+    text-align: center;
+    letter-spacing: 0.3vw;
+    color: #fadebd;
+    margin: auto;
+    text-align: center;
+    padding: 1vw;
+    width: 80vw;
+    height: auto;
+}
+
+.input-container {
+    border: 1px solid green;
+    padding: 3.5vh;
+    display: flex;
+    flex-direction: row;
+    align-items:center ;
+}
+
+.input-container form {
+    margin: 0;
+}
+
+input[type="text"]{
+    width: 50vw;
+    height: 4.5vh;
+    border: none;
+    margin-bottom: 2vh;
+    display: inline-flex;
+    background-color: #2D313B;
+    font-family: "Afacad Flux", "ZCOOL XiaoWei", sans-serif;
+    font-size: 1vw;
+    color: #fadebd;
+    border-radius: 0.3vw;
+    padding: 0.7vh 0.5vw;
+    white-space: pre-wrap; 
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    resize: vertical;
+    transition: height 0.3s ease, padding 0.5s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+input[type="text"]:focus {
+    background-color: #373c49;
+    border-color: #393c45;
+    padding: 1vh 0.6vw;
+    box-shadow: 0 0 8px rgba(162, 178, 205, 0.8);
+    outline: none;
+}
+input[type="text"]:hover {
+    padding: 1vh 0.6vw;
+    box-shadow: 0 0 8px rgba(162, 178, 205, 0.8);
+    outline: none;
+}
+
+textarea{
+    width: 50vw;
+    height: 14vh;
+    border: none;
+    display: inline-flex;
+    background-color: #2D313B;
+    font-family: "Afacad Flux", "ZCOOL XiaoWei", sans-serif;
+    font-size: 1vw;
+    color: #fadebd;
+    border-radius: 0.3vw;
+    padding: 0.7vh 0.5vw;
+    white-space: pre-wrap; 
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    resize: vertical;
+    transition: height 0.3s ease, padding 0.5s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+textarea:focus {
+    background-color: #373c49;
+    border-color: #393c45;
+    padding: 1vh 0.6vw;
+    box-shadow: 0 0 8px rgba(162, 178, 205, 0.8);
+    outline: none;
+}
+textarea:hover {
+    padding: 1vh 0.6vw;
+    box-shadow: 0 0 8px rgba(162, 178, 205, 0.8);
+    outline: none;
+}
+
+.controls-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding-top: 10px;
+    align-items: center;
+}
+
+input[type="submit"] {
+    border: none;
+    border-radius: 1vw;
+    font-size: 1.7vw;
+    cursor: pointer;
+    margin-top: 1.5vh;
+    padding: 1.5vh 1.5vw;
+    background-color: #1f2229;
+    color: #fadebd;
+    display: inline-flex;
+    font-family: "Afacad Flux", sans-serif;
+    font-weight: 500;
+    font-style: normal;
+    transition: background-color 1s ease, padding 1s ease, border-radius 1s ease, font-size 0.35s ease, color 0.25s ease;
+}
+
+input[type="submit"]:hover {
+    background-color: rgb(7, 18, 33);
+    color: #ffebd5;
+    padding: 2vh 2vw;
+    font-size: 2.5vw;
+    border-radius: 1.5vw;
+}
+
+.oldButton{
+    display: none;
+}
+
+.selectButton {
+    font-family: "Afacad Flux", "ZCOOL XiaoWei", sans-serif;
+    font-size: 1vw;
+    padding: 0.15vw;
+    background-color: #1f2229;
+    color: #fadebd;
+    border: none;
+    cursor: pointer;
+    border-radius: 0.7vw;
+    transition: background-color 0.5s ease, padding 0.5s ease, box-shadow 0.5s ease, font-size 0.35s ease, color 0.25s ease;
+}
+
+.selectButton:hover{
+    background-color: #2D313B;
+    color: #ffebd5;
+    font-size: 1.2vw;
+    padding: 0.7vw;
+    outline: none;
+}
+
+
+.messages-container {
+    border:1px solid purple;
+    padding-top: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: right;
+    letter-spacing: 0.12vw;
+}
+
+.date {
+    color: #fadebd;
+    font-size: 1.1vw;
+}
+
+.message {
+    border:1px solid purple;
+    font-family: "Afacad Flux", "ZCOOL XiaoWei", sans-serif;
+    font-size: 1.2vw;
+    text-align: left;
+    margin: 0;
+    padding-top: 5px;
+    width: 100%;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    resize: vertical;
+}
+
+.theme-container{
+    display: flex;
+    text-align: right;
+    justify-content: center;
+    letter-spacing: 0.1vw;
+    padding: 0.5vw 0.2vh;
+    font-size: 2.2vw;
+}
+
+.tags{
+    display: flex;
+    text-align: right;
+    justify-content: center;
+    letter-spacing: 0.1vw;
+    padding: 0.5vw 0.2vh;
+    font-size: 1.2vw;
+}
+
+.tags h1{
+    margin-right: 2vw
+}
+
+.opt1{
+    font-family: "Afacad Flux", "ZCOOL XiaoWei", sans-serif;
+    font-size: 1vw;
+    color: #fadebd;
+    text-align: left;
+    margin: 0;
+    padding-top: 5px;
+    width: 100%;
+    height: auto;
+    border: none;
+    outline: none;
+    background-color: #1f2229;
+    transition: height 0.5s ease, background-color 0.3s ease, font-size 0.35s ease, color 0.25s ease;
+}
+
+.opt2{
+    font-family: "Afacad Flux", "ZCOOL XiaoWei", sans-serif;
+    font-size: 1vw;
+    color: #fadebd;
+    text-align: left;
+    margin: 0;
+    padding-top: 5px;
+    width: 100%;
+    height: auto;
+    border: none;
+    outline: none;
+    background-color: #1f2229;
+    transition: height 0.2s ease, background-color 0.2s ease, font-size 0.2s ease, color 0.2s ease;
+}
+
+option:hover{
+    color: #ffebd5;
+    background-color: #373c49;
+    outline: none;
+    border: none;
+}
+
+option:checked{
+    font-size: 1.1vw;
+    color: #ffebd5;
+    background-color: #373c49;
+    outline: none;
+    border: none;
+}
+
+.select1 {
+    width: 50vw;
+    height: 16vh;
+    display: flex;
+    background-color: #1f2229;
+    border: none;
+    border-radius: 1vh;
+    color: #fadebd;
+    overflow: hidden; 
+    white-space: nowrap; 
+    -webkit-appearance: none; 
+    -moz-appearance: none;
+    appearance: none;
+    transition: height 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.select1:focus {
+    border-color: #393c45;
+    box-shadow: 0 0 8px rgba(162, 178, 205, 0.8);
+    outline: none;
+}
+.select1:hover {
+    border-color: #393c45;
+    box-shadow: 0 0 8px rgba(162, 178, 205, 0.8);
+    outline: none;
+}
+.select2 {
+    width: 16vw;
+    height: 19vh;
+    display: flex;
+    background-color: #1f2229;
+    border: none;
+    border-radius: 1vh;
+    color: #fadebd;
+    overflow: hidden; 
+    white-space: nowrap; 
+    -webkit-appearance: none; 
+    -moz-appearance: none;
+    appearance: none;
+    transition: height 0.1s ease, border-color 0.1s ease, box-shadow 0.1s ease;
+}
+
+.select2:focus {
+    border-color: #393c45;
+    box-shadow: 0 0 8px rgba(162, 178, 205, 0.8);
+    outline: none;
+}
+.select2:hover {
+    border-color: #393c45;
+    box-shadow: 0 0 8px rgba(162, 178, 205, 0.8);
+    outline: none;
+}
+
+.message-item {
+    margin-top: 20px;
+    border: none;
+    padding: 1vw 1.5vh;
+    background-color: #1f2229;
+    border-radius: 2vw;
+}
+
+.item-image img {
+    overflow: hidden;
+    object-fit: contain; 
+    max-width: 20vw;
+    padding-bottom: 0.5vw;
+    display: flex;
+    align-items: center;
+}

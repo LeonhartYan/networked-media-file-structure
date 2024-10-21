@@ -1,5 +1,5 @@
 {
-  "name": "class11-starter",
+  "name": "community",
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
@@ -10,9 +10,11 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "body-parser": "^1.20.2",
-    "ejs": "^3.1.9",
+    "ejs": "^3.1.10",
     "express": "^4.21.1",
     "multer": "^1.4.5-lts.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.7"
   }
 }
