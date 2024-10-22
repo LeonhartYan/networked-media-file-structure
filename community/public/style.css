@@ -138,10 +138,10 @@ body{
     width: 75%;
     height: 50%;
     background-color: #1f2229;
-    color:#ffce95;
+    color:#fadebd;
     padding: 1% 0.5%;
     border-radius: 5vw;
-    transition: height 0.75s ease-out, transform 0.5s ease-out,background-color 0.6s ease, font-size 0.35s ease, color 0.25s ease;
+    transition: height 0.5s ease, transform 0.5s ease-out,background-color 0.6s ease, font-size 0.35s ease, color 0.35s ease;
 
 }
 
