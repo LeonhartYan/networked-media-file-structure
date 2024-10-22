@@ -36,17 +36,21 @@ app.get('/posts', (req, res)=>{
     res.render("posts.ejs", dataContainer)
 })
 
-app.get('/scripts', (req, res) => {
-    res.render('scripts');
+app.get('/scenarios', (req, res) => {
+    res.render('scenarios.ejs');
 });
+
+app.get('/about', (req, res)=>{
+    res.render('about.ejs');
+})
 
 
 // array that stores all of the data on the server
 let data = []
-const allTags = ["【Script Recommendation 团本推荐】",
-    "【Script Critique 团本拔草】", "【Run Session 跑团预警】",  "【Session Comment 跑团评价】", "【Chat 闲聊】"]
-const tagsFilter = ["【All Tags 全部标签】", "【Script Recommendation 团本推荐】",
-    "【Script Critique 团本拔草】", "【Run Session 跑团预警】",  "【Session Comment 跑团评价】", "【Chat 闲聊】"]
+const allTags = ["【Scenarios Recommendation 团本推荐】",
+    "【Scenarios Critique 团本拔草】", "【Run Session 跑团预警】",  "【Session Comment 跑团评价】", "【Chat 闲聊】"]
+const tagsFilter = ["【All Tags 全部标签】", "【Scenarios Recommendation 团本推荐】",
+    "【Scenarios Critique 团本拔草】", "【Run Session 跑团预警】",  "【Session Comment 跑团评价】", "【Chat 闲聊】"]
 let postNum = []
 
 // new route to handle uploaded data

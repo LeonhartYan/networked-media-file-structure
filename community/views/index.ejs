@@ -1,55 +1,90 @@
 <!DOCTYPE ejs>
 <html>
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CN_Localized COC TRPG</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Afacad+Flux:wght@100..1000&display=swap" rel="stylesheet">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=ZCOOL+XiaoWei&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CN_Localized COC TRPG</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Afacad+Flux:wght@100..1000&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=ZCOOL+XiaoWei&display=swap" rel="stylesheet">
 </head>
+
 <body>
   <div class="occupie"></div>
   <header class="nav-container"><%- include("nav.ejs", {}) %></header>
-    <div class="main-container">
-      <div class="textLeft">CN Localized <br> COC TRPG</div>
-      <div class="dice"><img src="dice.png" alt="Dice"></div>
-      <div class="textRight">中式跑团</div>
-    </div>
-    <script>
-      var rotate = true;
-      var rotate_timer = 0;
-      var rotate_dura = 100;
-      const img = document.getElementsByClassName('main-container')[0].getElementsByTagName('img')[0];
-      const main_Con = document.getElementsByClassName('main-container')[0];
-      img.addEventListener('mouseover', ()=>{
-        main_Con.style.color = '#2D313B';
-        main_Con.style.backgroundColor = '#212630';
-      });
-      img.addEventListener('mouseout', ()=>{
-        main_Con.style.color = '#fadebd';
-        main_Con.style.backgroundColor = '#1f2229';
-      });
-      img.addEventListener('click', ()=>{
-        if(rotate){
+  <div class="title">
+    <h2>Click and Roll the Dice!</h2>
+  </div>
+  <div class="main-container">
+    <div class="textLeft">CN Localized <br> COC TRPG</div>
+    <div class="dice"><img src="images/dice.png" alt="Dice"></div>
+    <div class="textRight">中式跑团</div>
+  </div>
+  <div class="scene-bigContainer">
+    <div class="scene-container"><a href="/scenarios"><img src="" id="ranImg1"></a></div>
+    <div class="scene-container"><a href="/scenarios"><img src="" id="ranImg2"></a></div>
+  </div>
+  <script>
+    var ranImg1 = document.getElementById("ranImg1");
+    var ranImg2 = document.getElementById("ranImg2");
+    var ran1 = Math.floor(Math.random() * 3);
+    var ran2 = Math.floor(Math.random() * 3);
+    var rotate = true;
+    var rotate_timer = 0;
+    var rotate_dura = 100;
+    const img = document.getElementsByClassName('main-container')[0].getElementsByTagName('img')[0];
+    const main_Con = document.getElementsByClassName('main-container')[0];
+    const scene1 = document.getElementsByClassName('scene-container')[0];
+    const scene2 = document.getElementsByClassName('scene-container')[1];
+    const title = document.getElementsByClassName('title')[0];
+    ranImg1.src = "images/" + ran1 + ".jpg";
+    ranImg2.src = "images/" + ran2 + ".jpg";
+    img.addEventListener('mouseover', () => {
+      main_Con.style.color = '#2D313B';
+      main_Con.style.backgroundColor = '#212630';
+      scene1.style.height = '0';
+      scene2.style.height = '0';
+      title.style.color = '#2D313B';
+    });
+    img.addEventListener('mouseout', () => {
+      main_Con.style.color = '#fadebd';
+      main_Con.style.backgroundColor = '#1f2229';
+      scene1.style.height = '40vh';
+      scene2.style.height = '40vh';
+      title.style.color = '#fadebd';
+    });
+    img.addEventListener('click', () => {
+      ran1 = Math.floor(Math.random() * 4);
+      ran2 = Math.floor(Math.random() * 4);
+      if (ran1 == ran2) {
+        ran1 = Math.floor(Math.random() * 4);
+        ran2 = Math.floor(Math.random() * 4);
+        return;
+      }
+      ranImg1.src = "images/" + ran1 + ".jpg";
+      ranImg2.src = "images/" + ran2 + ".jpg";
+      if (rotate) {
         img.style.transform = 'rotate(-360deg)';
         rotate = false;
-        }
-        if (!rotate){
+      }
+      if (!rotate) {
         var interval = setInterval(() => {
-          rotate_timer ++;
-          if(rotate_timer > rotate_dura){
+          rotate_timer++;
+          if (rotate_timer > rotate_dura) {
             img.style.transform = 'rotate(360deg)';
             rotate_timer = 0;
             rotate = true;
             clearInterval(interval);
           }
-        }, 10);}
-      })
-    </script>
+        }, 10);
+      }
+    })
+  </script>
 </body>
+
 </html>
