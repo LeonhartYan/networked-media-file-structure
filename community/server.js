@@ -47,10 +47,10 @@ app.get('/about', (req, res)=>{
 
 // array that stores all of the data on the server
 let data = []
-const allTags = ["【Scenarios Recommendation 团本推荐】",
-    "【Scenarios Critique 团本拔草】", "【Run Session 跑团预警】",  "【Session Comment 跑团评价】", "【Chat 闲聊】"]
-const tagsFilter = ["【All Tags 全部标签】", "【Scenarios Recommendation 团本推荐】",
-    "【Scenarios Critique 团本拔草】", "【Run Session 跑团预警】",  "【Session Comment 跑团评价】", "【Chat 闲聊】"]
+const allTags = ["Scenarios Recommendation 团本推荐",
+    "Scenarios Critique 团本拔草", "Run Session 跑团预警",  "Session Comment 跑团评价", "Chat 闲聊"]
+const tagsFilter = ["All Tags 全部标签", "Scenarios Recommendation 团本推荐",
+    "Scenarios Critique 团本拔草", "Run Session 跑团预警",  "Session Comment 跑团评价", "Chat 闲聊"]
 let postNum = []
 
 // new route to handle uploaded data

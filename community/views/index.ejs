@@ -18,7 +18,7 @@
   <div class="occupie"></div>
   <header class="nav-container"><%- include("nav.ejs", {}) %></header>
   <div class="title">
-    <h2>Click and Roll the Dice!</h2>
+    <h2>Click and Roll the Dice to Randomize!</h2>
   </div>
   <div class="main-container">
     <div class="textLeft">CN Localized <br> COC TRPG</div>
@@ -38,27 +38,28 @@
     var rotate_timer = 0;
     var rotate_dura = 100;
     const img = document.getElementsByClassName('main-container')[0].getElementsByTagName('img')[0];
+    const dice = document.getElementsByClassName('dice')[0]
     const main_Con = document.getElementsByClassName('main-container')[0];
     const scene1 = document.getElementsByClassName('scene-container')[0];
     const scene2 = document.getElementsByClassName('scene-container')[1];
     const title = document.getElementsByClassName('title')[0];
     ranImg1.src = "images/" + ran1 + ".jpg";
     ranImg2.src = "images/" + ran2 + ".jpg";
-    img.addEventListener('mouseover', () => {
+    dice.addEventListener('mouseover', () => {
       main_Con.style.color = '#2D313B';
       main_Con.style.backgroundColor = '#212630';
       scene1.style.height = '0';
       scene2.style.height = '0';
       title.style.color = '#2D313B';
     });
-    img.addEventListener('mouseout', () => {
+    dice.addEventListener('mouseout', () => {
       main_Con.style.color = '#fadebd';
       main_Con.style.backgroundColor = '#1f2229';
       scene1.style.height = '40vh';
       scene2.style.height = '40vh';
       title.style.color = '#fadebd';
     });
-    img.addEventListener('click', () => {
+    dice.addEventListener('click', () => {
       ran1 = Math.floor(Math.random() * 4);
       ran2 = Math.floor(Math.random() * 4);
       if (ran1 == ran2) {

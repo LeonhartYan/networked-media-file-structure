@@ -39,12 +39,10 @@ body{
     height: 100%;
     transition: background-color 1s ease;
     background-color: #2D313B;
-    border: 1px solid #ff0019;
 
 }
 
 .nav-container{
-    border: 1px solid #FF6978;
     background-color: rgb(7, 18, 33, 0.8);
     height: 10vh;
     width: 100%;
@@ -58,7 +56,6 @@ body{
 
 .nav-container .logo{
     width: 40%;
-    /* border: 1px solid #FF6978; */
     padding-left: 3%;
     display: flex;
     align-items: center;
@@ -78,7 +75,6 @@ body{
 .nav-container .headerLinks{
     width: 40%;
     height: auto;
-    border: 1px solid #ff0019;
     overflow: hidden;
     color: #fadebd;
     display: flex;
@@ -94,7 +90,6 @@ body{
     width: auto;
     height: 2vw;
     overflow: hidden;
-    border: 1px solid #FF6978;
     margin-left: 4vw;
     line-height: 2vw;
     justify-content: center;
@@ -127,7 +122,6 @@ body{
 }
 
 .main-container{
-/* border: 1px solid green; */
     margin-top: 3vh;
     display: flex;
     text-align: right;
@@ -182,4 +176,9 @@ body{
     display: flex;
     align-items: start;
     justify-content:start;
+    transition: scale 0.5s ease;
+}
+
+.item-image img:hover{ 
+    scale: 1.18;
 }

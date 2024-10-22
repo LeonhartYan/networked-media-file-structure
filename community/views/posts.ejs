@@ -47,14 +47,14 @@
                 </div>
             </div>
             <% for(let i=0; i < arrayToBeSent.length; i++){ %>
-                <% if(!filterTag || filterTag === "【All Tags 全部标签】" || filterTag === arrayToBeSent[i].tags){%>
+                <% if(!filterTag || filterTag === "All Tags 全部标签" || filterTag === arrayToBeSent[i].tags){%>
                     <div class="message-item">
                         <!--different containers iterate within for loop-->
                         <div class="date">
                             <%= arrayToBeSent[i].date %>
                         </div>
                         <div class="Showtags">
-                            <%= arrayToBeSent[i].tags %>
+                           【<%= arrayToBeSent[i].tags %>】
                         </div>
                         <div class="theme-container">
                             <%= arrayToBeSent[i].theme %>
