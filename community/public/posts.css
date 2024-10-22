@@ -135,13 +135,13 @@ body {
     text-align: center;
     align-items: center;
     justify-content: center;
-    width: 75vw;
+    width: 75%;
     height: 40vh;
     max-height: 40vh;
     background-color: #1f2229;
     color: #fadebd;
-    padding: 5% 5%;
-    border-radius: 3vw;
+    padding: 5% 0.5%;
+    border-radius: 5vw;
     transition: background-color 1s ease, font-size 0.35s ease, color 0.25s ease;
 
 }
@@ -250,7 +250,7 @@ input[type="submit"] {
     border-radius: 1vw;
     font-size: 1.7vw;
     cursor: pointer;
-    margin-top: 1.5vh;
+    margin-top: 2vh;
     padding: 1.5vh 1.5vw;
     background-color: #1f2229;
     color: #fadebd;
@@ -306,13 +306,13 @@ input[type="submit"]:hover {
 
 .date {
     color: #fadebd;
-    font-size: 1.1vw;
+    font-size: 1.4vw;
 }
 
 .message {
     border:1px solid purple;
     font-family: "Afacad Flux", "ZCOOL XiaoWei", sans-serif;
-    font-size: 1.2vw;
+    font-size: 1.4vw;
     text-align: left;
     margin: 0;
     padding-top: 5px;
@@ -346,7 +346,7 @@ input[type="submit"]:hover {
 
 .opt1{
     font-family: "Afacad Flux", "ZCOOL XiaoWei", sans-serif;
-    font-size: 1vw;
+    font-size: 1.2vw;
     color: #fadebd;
     text-align: left;
     margin: 0;
@@ -361,7 +361,7 @@ input[type="submit"]:hover {
 
 .opt2{
     font-family: "Afacad Flux", "ZCOOL XiaoWei", sans-serif;
-    font-size: 1vw;
+    font-size: 1.2vw;
     color: #fadebd;
     text-align: left;
     margin: 0;
@@ -382,7 +382,7 @@ option:hover{
 }
 
 option:checked{
-    font-size: 1.1vw;
+    font-size: 1.4vw;
     color: #ffebd5;
     background-color: #373c49;
     outline: none;
@@ -391,7 +391,7 @@ option:checked{
 
 .select1 {
     width: 50vw;
-    height: 16vh;
+    height: 15vh;
     display: flex;
     background-color: #1f2229;
     border: none;
@@ -402,6 +402,7 @@ option:checked{
     -webkit-appearance: none; 
     -moz-appearance: none;
     appearance: none;
+    margin-bottom: 1vh;
     transition: height 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
@@ -417,7 +418,7 @@ option:checked{
 }
 .select2 {
     width: 16vw;
-    height: 19vh;
+    height: 18vh;
     display: flex;
     background-color: #1f2229;
     border: none;

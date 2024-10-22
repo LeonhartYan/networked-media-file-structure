@@ -128,84 +128,44 @@ body{
 
 .main-container{
 /* border: 1px solid green; */
-    margin-top: 15vh;
+    margin-top: 3vh;
     display: flex;
-    text-align: center;
-    align-items: center;
-    justify-content: space-around;
+    text-align: right;
+    align-items:start ;
+    justify-content: space-between;
     width: 75%;
     height: 50%;
     background-color: #1f2229;
     color:#ffce95;
-    padding: 1% 0.5%;
+    padding: 5% 5%;
     border-radius: 5vw;
     transition: background-color 0.6s ease, font-size 0.35s ease, color 0.25s ease;
 
 }
 
-.main-container .dice{
+.main-container h1{
+    font-size: 3.5vw;
+}
+
+.title{
+    color: #fadebd;
+    font-size: 2vw;
+    margin-top: 13vh;
+    letter-spacing: 0.25vw;
+}
+
+.script{
+    color: #fadebd;
     display: flex;
-    width: 15vw;
-    height: 15vw;
-    padding: 0%;
-    border: 1px solid firebrick;
-    border-radius: 250px;
-    transition: transform 1s ease-out, width 0.5s ease-out, height 0.5s ease-out;
-    justify-content: center;
-    text-align: center;
-    align-items: center;
-
+    flex-direction: column;
 }
 
-.main-container img{
-    max-width: 100%;  
-    max-height: 100%;  
+.item-image img{
+    overflow: hidden;
     object-fit: contain; 
-    transform: rotate(360deg); 
-    transition: transform 1s ease-out, max-width 0.5s ease-out, max-height 0.5s ease-out;
-}
-
-.main-container img:hover{
-    max-width: 105%;  
-    max-height: 105%; 
-}
-
-.main-container .dice:hover{ 
-    width: 21vw;
-    height: 21vw;
-    border-radius: 450px;
-    transform: rotate(360deg);
-}
-
-.main-container .textLeft{
-    font-size: 4.25vw;
-    text-align: left;
-}
-.main-container .textRight{
-    font-size: 4.25vw;
-    text-align: right;
-    font-weight: 650;
-    letter-spacing: 1.15vw;
-}
-
-button {
-    font-family: "Anonymous Pro", monospace;
-    background-color: #df3b57;
-    border: none;
-    color: white;
-    text-align: center;
-    text-decoration: none;
-    padding: 1vw;
-    font-size: 1.5vw;
-    transition: background-color 0.5s ease, font-size 0.5s ease, color 0.5s ease;
-    border-radius: 1.5vw;
-}
-button:hover {
-    background-color: #fff0f0;
-    font-size: 2.2vw;
-    color: #FF6978;
-}
-
-button:active {
-    background-color: #39151b;
+    max-width: 20vw;
+    padding-bottom: 0.5vw;
+    display: flex;
+    align-items: start;
+    justify-content:start;
 }
