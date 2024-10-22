@@ -326,12 +326,14 @@ input[type="submit"]:hover {
     text-align: right;
     justify-content: center;
     letter-spacing: 0.1vw;
-    padding: 0.5vw 0.2vh;
-    font-size: 1.2vw;
+    margin-bottom: 0.5vh;
+    margin-top:0.5vh ;
+    font-size: 1vw;
 }
 
 .tags h1{
-    margin-right: 2vw
+    margin-right: 2vw;
+    text-align: left;
 }
 
 .opt1{
@@ -426,7 +428,7 @@ option:hover{
     -webkit-appearance: none; 
     -moz-appearance: none;
     appearance: none;
-    transition: height 0.1s ease, border-color 0.1s ease, box-shadow 0.1s ease;
+    transition: height 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .select2:focus {
@@ -452,7 +454,13 @@ option:hover{
     overflow: hidden;
     object-fit: contain; 
     max-width: 20vw;
-    padding-bottom: 0.5vw;
+    border-radius: 0.5vh;
+    margin-bottom: 0.5vw;
     display: flex;
     align-items: center;
+    transition: scale 0.5s ease;
+}
+
+.item-image img:hover{ 
+    scale: 1.15;
 }

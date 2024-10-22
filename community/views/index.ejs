@@ -18,7 +18,7 @@
   <div class="occupie"></div>
   <header class="nav-container"><%- include("nav.ejs", {}) %></header>
   <div class="title">
-    <h2>Click and Roll the Dice to Randomize!</h2>
+    <h2>Click and Roll the Dice to Randomize! 点击掷骰子！</h2>
   </div>
   <div class="main-container">
     <div class="textLeft">CN Localized <br> COC TRPG</div>
@@ -60,16 +60,16 @@
       title.style.color = '#fadebd';
     });
     dice.addEventListener('click', () => {
-      ran1 = Math.floor(Math.random() * 4);
-      ran2 = Math.floor(Math.random() * 4);
-      if (ran1 == ran2) {
+      if (rotate) {
         ran1 = Math.floor(Math.random() * 4);
         ran2 = Math.floor(Math.random() * 4);
-        return;
-      }
-      ranImg1.src = "images/" + ran1 + ".jpg";
-      ranImg2.src = "images/" + ran2 + ".jpg";
-      if (rotate) {
+        if (ran1 == ran2) {
+          ran1 = Math.floor(Math.random() * 4);
+          ran2 = Math.floor(Math.random() * 4);
+          return;
+        }
+        ranImg1.src = "images/" + ran1 + ".jpg";
+        ranImg2.src = "images/" + ran2 + ".jpg";
         img.style.transform = 'rotate(-360deg)';
         rotate = false;
       }

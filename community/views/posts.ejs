@@ -20,7 +20,7 @@
                 <form method="POST" action="/upload" enctype="multipart/form-data">
                     <div><input name="theme" type="text" placeholder="Your Theme:"></div>
                     <div><textarea name="text" placeholder="Leave your thoughts HERE:"></textarea></div>
-                    <div class="tags"><p>Select One Tag:</p></div>
+                    <div class="tags"><h2>Select One Tag:</h2></div>
                     <div class="tags"><select class="select1" name="tags" size="5" required>
                         <% allTags.forEach((t) => { %>
                             <option class="opt1" value="<%= t %>"><%= t %></option>
@@ -35,7 +35,7 @@
         </div>
         <div class="app-container">
             <div class="tags">
-                <div><h1>Thread Categories:</h1></div>
+                <div><h1>Filter<br> Thread <br> Categories:</h1></div>
                 <div>
                 <form method="GET" action="/posts" enctype="multipart/form-data">
                     <select class="select2" name="filterTag" size="6" onchange="this.form.submit()">

@@ -121,120 +121,80 @@ body{
     line-height: 120px;
 }
 
-.title{
-    color: #fadebd;
-    font-size: 2vh;
-    margin-top: 10.5vh;
-    letter-spacing: 0.1vw;
-    transition: height 0.75s ease-out, font-size 0.35s ease, color 0.35s ease;
-}
-
 .main-container{
-    margin-top: 1vh;
+    margin-top: 3vh;
     display: flex;
-    text-align: center;
-    align-items: center;
-    justify-content: space-around;
+    flex-direction: column;
+    text-align: right;
+    align-items:center ;
+    justify-content: space-between;
     width: 75%;
     height: 50%;
     background-color: #1f2229;
-    color:#fadebd;
-    padding: 1% 0.5%;
-    border-radius: 5vw;
-    transition: height 0.5s ease, transform 0.5s ease-out,background-color 0.6s ease, font-size 0.35s ease, color 0.35s ease;
-
-}
-
-.main-container .dice{
-    display: flex;
-    width: 15vw;
-    height: 15vw;
-    padding: 0%;
-    border-radius: 250px;
-    transition: transform 0.7s ease-out, width 0.5s ease-out, height 0.5s ease-out;
-    justify-content: center;
-    text-align: center;
-    align-items: center;
-
-}
-
-.main-container img{
-    max-width: 100%;  
-    max-height: 100%;  
-    object-fit: contain; 
-    transform: rotate(360deg); 
-    transition: transform 0.7s ease-out, max-width 0.5s ease, max-height 0.5s ease;
-}
-
-.main-container img:hover{
-    max-width: 105%;  
-    max-height: 105%; 
-}
-
-.main-container .dice:hover{ 
-    width: 21vw;
-    height: 21vw;
-    border-radius: 450px;
-    transform: rotate(360deg);
-}
-
-.main-container .textLeft{
-    font-size: 4.25vw;
-    text-align: left;
-}
-.main-container .textRight{
-    font-size: 4.25vw;
-    text-align: right;
-    font-weight: 650;
-    letter-spacing: 1.15vw;
-}
-
-.scene-bigContainer{
-    margin-top: 3vh;
-    width: 75%;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    text-align: center;
-    justify-content: center
-}
-
-.scene-container{
-    overflow: hidden;
-    object-fit: contain; 
-    background-color: #1f2229;
-    width: 50vw;
-    height: 40vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     color:#ffce95;
-    border-radius: 2.5vw;
-    margin-bottom: 3vh;
-    margin-left: 2vw;
-    margin-right: 2vw;
-    transition: width 0.5s ease, height 1s ease, background-color 0.6s ease, font-size 0.35s ease, color 0.25s ease;
+    padding: 5% 5%;
+    border-radius: 5vw;
+    transition: background-color 0.6s ease, font-size 0.35s ease, color 0.25s ease;
+
 }
 
-.scene-container a{
-    text-decoration: none;
-    color: inherit; 
-    display: flex; 
+.main-container h1{
+    font-size: 3.5vw;
+}
+
+.title{
+    color: #fadebd;
+    font-size: 2vw;
+    margin-top: 13vh;
+    letter-spacing: 0.25vw;
+}
+
+.info-container{
+    color: #fadebd;
+    display: flex;
+    flex-direction: column;
+}
+
+.info-text{
+    font-size: 1.3vw;
+}
+
+.info-text h1{
+    line-height: 1.2;
+    text-align: center;
+    margin-top: 5vh;
+}
+.info-text h2{
+    line-height: 1.2;
+    text-align: center;
+}
+
+.info-text p{
+    line-height: 1.6;
+    text-align: center;
+    margin-top: 1vh;
+}
+
+.item-image {
+    width: 20vw;
+    height: 20vh;
+    border-radius: 500px;
+    display: flex;
     align-items: center;
-    justify-content: center;
-    width: 100%;
-    height: auto;
+    justify-content:center;
 }
 
-.scene-container img{
+.item-image img{
     overflow: hidden;
     object-fit: contain; 
-    max-width: 50vw;
+    max-width: 20vw;
     display: flex;
-    align-items: start;
-    justify-content:start;
+    align-items: center;
+    border-radius: 500px;
+    justify-content:center;
+    transition: scale 0.5s ease;
 }
 
-.scene-container:hover {
-    width: 60vw;
+.item-image img:hover{ 
+    scale: 1.15;
 }

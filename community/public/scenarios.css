@@ -172,13 +172,13 @@ body{
     overflow: hidden;
     object-fit: contain; 
     max-width: 20vw;
-    padding-bottom: 0.5vw;
     display: flex;
     align-items: start;
     justify-content:start;
+    border-radius: 1vh;
     transition: scale 0.5s ease;
 }
 
 .item-image img:hover{ 
-    scale: 1.18;
+    scale: 1.15;
 }
