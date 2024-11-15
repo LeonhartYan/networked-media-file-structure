@@ -4,6 +4,10 @@
     <link href="style.css" rel="stylesheet">
   </head>
   <body>
+    <div><%- include("nav.ejs", {}) %></div>
+    <div class="visits-counter">
+      <%=visitsToSite%>
+    </div>
     <div class="search-container">
       <form method="GET" action="/search">
         <input
@@ -45,7 +49,7 @@
     </div>
     <div class="all-posts">
         <% posts.forEach( (post) => { %>
-          <%- include('indivsualPost.ejs', post.text) %>
+          <%- include('individualPost.ejs', {post: post}) %>
         <% }) %>
       </div>
   </body>

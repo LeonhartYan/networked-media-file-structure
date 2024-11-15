@@ -11,6 +11,7 @@ const multer = require("multer");   // file-upload
 const bodyParser = require("body-parser");  // have body in server request， read body
 
 const nedb = require("@seald-io/nedb")
+const cookieParser = require("cookie-parser")
 // translates bits and bytes(literal memory data to server reable)
 const urlEncodedParser = bodyParser.urlencoded({ extended: true }); 
 
@@ -33,16 +34,25 @@ let database = new nedb({
 app.use(express.static("public"));  // set default folder of static file(assets, img, etc.)
 app.use(urlEncodedParser);        //init parser to translate bit/bytes
 app.set("view engine", "ejs"); // init template engine for site rendering
-
+app.use(cookieParser());
 // what is this?
 // A: route handle client request
 app.get("/", (request, response) => {
   //response.send("server working");
-
+  let newVisits = 0;
+  if(request.cookies.visits){
+    newVisits = parseInt(request.cookies.visits) +1
+    response.cookie("visits", newVisits, {
+      expires: new Date(Date.now() + 100 * 365 * 24 * 60 * 60 * 1000),
+    })
+  }else{
+    response.cookie("visits", 1, {
+      expires: new Date(Date.now() + 100 * 365 * 24 * 60 * 60 * 1000),
+    })
+  }
   // what steps do we need in order to use a template ejs file?
   // install ejs, create view folder, set view engine to "ejs", create the .ejs file
   let query = {
-    text: new RegExp(searchTerm),
   };
   let sortQuery = {
     timestamp: -1,
@@ -75,10 +85,6 @@ app.delete('/remove', (req, res)=>{
   let query ={
     _id: id
   }
-})
-
-database.remove(query,(err. numRemoved)=>{
-  
 })
 
 app.post('/upload', upload.single('theimage'), (req, res)=>{

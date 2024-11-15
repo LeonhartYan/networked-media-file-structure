@@ -1,0 +1,37 @@
+<div class="post">
+
+  <form method="POST" action="/like">
+    <input type="submit" value="Like This Post" id="like-message-<%=post._id%>">
+    <label for="like-message-<%=post._id%>">😘 <%=post.likes%></label>
+    <input type="hidden" name="postId" value="<%=post._id%>">
+  </form>
+    <a href="/post/<%=post._id%>">
+      
+      <span class="date"> <%= post.date %></span>
+
+
+      <% if(post.image) { %>
+          <img src="<%=post.image %>">
+      <% } %>
+      <p class="post-text"><%= post.text %></p>
+    </a>
+    <!-- <form method="DELETE" action="/remove/<%=post._id%>"> -->
+    <form method="POST" action="/remove">
+        <input type="submit" value="Delete">
+        <input type="hidden" name="postId" value="<%=post._id%>">
+    </form>
+
+    <form method="POST" action="/comment">
+      <input type="text" name="comment" placeholder="Add a kind comment">
+      <input type="hidden" name="postId" value="<%=post._id%>">
+      <input type="submit" name="commentbtn" value="Add a comment">
+    </form>
+    <div>
+      <% post.comments.forEach((comment) => { %>
+        <div>
+          <%= comment %>
+        </div>
+        
+     <% });%>
+    </div>
+  </div>
