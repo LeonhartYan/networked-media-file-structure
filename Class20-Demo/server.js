@@ -16,7 +16,8 @@ const cookieParser = require('cookie-parser')
 
 const expressSession = require('express-session');
 const nedbSessionStore = require('nedb-promises-session-store')
-const bcrypt = require('bcrypt')
+const bcrypt = require('bcrypt');
+const session = require("express-session");
 
 // translates bits and bytes (literal memory and data) to something readable by the server
 const urlEncodedParser = bodyParser.urlencoded({ extended: true }); 
@@ -60,9 +61,18 @@ let userdatabase =  new nedb({
   autoload: true
 })
 
+function requiresAuth(req, res, next){
+  if(req.session.loggedInUser){
+    next()
+  }else{
+    res.redirect('/login')
+  }
+}
+
+
 // what is this?
 // A: route that handles when the client makes a request to /
-app.get("/", (request, response) => {
+app.get("/", requiresAuth, (request, response) => {
   // response.send("server working");
 
   // what steps do we need in order to use a template ejs file?
@@ -206,7 +216,7 @@ app.get('/login', (req, res)=>{
   res.render('login.ejs', {})
 })
 
-app.get('/signup', upload.single("profilePicture"), (req, res)=>{
+app.post('/signup', upload.single("profilePicture"), (req, res)=>{
   let hashedPassword = bcrypt.hashSync(req.body.password, 10)
 
   let data = {
@@ -220,6 +230,48 @@ app.get('/signup', upload.single("profilePicture"), (req, res)=>{
     res.redirect("/login")
   })
 })
+
+app.post("/authenticate", (req, res)=>{
+  let data = {
+    username: req.body.username,
+    password: req.body.password,
+  }
+
+  //search username
+  let query = {
+    username: data.username
+  }
+  //search db for match username
+  userdatabase.findOne(query, (err, user)=>{
+    console.log("attempt login")
+    if(err || user == null){
+      console.log("user not found")
+      //user not found
+      res.redirect('/login')
+    }else{
+      console.log('found user');
+      // store enc pass in db as local var
+      let encPass = user.password
+      // bcrypt compare enc pass with login pwd
+      if(bcrypt.compareSync(data.password, encPass)){
+        console.log('login successful')
+        //req find current session
+        let session = req.session
+        //store logged user into the session
+        session.loggedInUser = data.username
+        res.redirect('/')
+      } else {//pwd failed, re-login
+        res.redirect('/login')
+      }
+    }
+  })
+})
+
+app.get('/logout', (req, res)=>{
+  delete req.session.loggedInUser
+  res.redirect('/login')
+})
+
 
 // what does the number signify?
 // A: port number!
