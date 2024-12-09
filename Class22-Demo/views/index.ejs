@@ -1,0 +1,74 @@
+<html>
+
+<head>
+  <title>class 18 demo</title>
+  <link href="style.css" rel="stylesheet">
+  <script src="/socket.io/socket.io.js"></script>
+</head>
+
+<body>
+  <%- include('nav.ejs') %>
+
+    <div class="visits-counter">
+      <%=visitsToSite%>
+    </div>
+    <div class="search-container">
+      <form method="GET" action="/search">
+        <label for="searchType">Search by:</label>
+        <select name="searchType" id="searchType">
+          <option value="all">All Starmaps</option>
+          <option value="theme">By Theme</option>
+          <option value="name">By Username</option>
+          <option value="interest">By Interests</option>
+        </select>
+        <input type="text" class="search-bar" name="searchTerm" placeholder="Search..." />
+      </form>
+    </div>
+    <div id="notification-container"></div>
+    <div class="all-posts">
+      <% posts.forEach( (post)=> { %>
+        <%- include('individualPost.ejs', {post: post}) %>
+          <% }) %>
+    </div>
+</body>
+<script>
+  const socket = io();
+  socket.on("notification", (data) => {
+    console.log("Notification received:", data);
+
+    const logBoard = document.getElementById("notification-container");
+    const logMessage = document.createElement("div");
+    logMessage.classList.add("log-container")
+    logMessage.textContent = data.message;
+    logBoard.appendChild(logMessage);
+    setTimeout(() => {
+      logMessage.style.transition = "opacity 1s ease";
+      logMessage.style.opacity = "0";
+
+      setTimeout(() => {
+        logBoard.removeChild(logMessage);
+      }, 1000);
+    }, 3000);
+  });
+
+  socket.on("interest-liked", (data) => {
+    console.log("Interest liked event received:", data);
+    const like = data.like;
+    const name = data.name;
+    const likeArea = document.getElementById(`likeArea${name}`)
+    likeArea.textContent = `点赞 ❤️ (${like})`;
+  });
+
+  document.querySelectorAll(".interest-like-btn").forEach((btn) => {
+    btn.addEventListener("click", (e) => {
+      e.preventDefault();
+
+      const postId = btn.getAttribute("data-post-id");
+      const interestIndex = btn.getAttribute("data-interest-index");
+      const username = "<%= username %>"
+      socket.emit("like-interest", { postId, interestIndex, username });
+    });
+  });
+</script>
+
+</html>

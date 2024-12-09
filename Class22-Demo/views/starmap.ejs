@@ -1,0 +1,34 @@
+<% include("nav.ejs") %>
+<link rel="stylesheet" href="style.css">
+<body>
+<div class="form-container">
+    <form method="POST" action='/upload' enctype="multipart/form-data">
+      <div class="form-content-container">
+        <div>
+          <h1>Create a Starmap!</h1>
+          <input type="text" id="theme" name="theme" required>
+          <br>
+          <label for="interest1">Interest 1：</label>
+          <input type="text" id="interest1" name="interest1" required>
+          <br>
+          <label for="interest2">Interest 2：</label>
+          <input type="text" id="interest2" name="interest2">
+          <br>
+          <label for="interest3">Interest 3：</label>
+          <input type="text" id="interest3" name="interest3">
+          <br>
+          <label for="interest4">Interest 4：</label>
+          <input type="text" id="interest4" name="interest4">
+          <br>
+          <label for="interest5">Interest 5：</label>
+          <input type="text" id="interest5" name="interest5">
+        </div>
+        <div class="submit-container">
+          <div>
+            <input type="submit" name="submitbutton" value="Submit" />
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</body>
