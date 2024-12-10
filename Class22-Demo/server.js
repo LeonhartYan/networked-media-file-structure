@@ -27,7 +27,11 @@ const urlEncodedParser = bodyParser.urlencoded({ extended: true });
 // A: instance of express
 const app = express();
 const server = http.createServer(app);
-const io = new Server(server);
+const io = new Server(server, {
+  pingInterval: 25000, 
+  pingTimeout: 50000, 
+});
+
 // what is this configuring?
 // A: destination for where files should be uploaded
 const upload = multer({
@@ -244,8 +248,8 @@ app.post("/like", (req, res) => {
 
 io.on("connection", (socket) => {
   console.log("A user connected:", socket.id);
-  socket.on("disconnect", () => {
-    console.log("A user disconnected:", socket.id);
+  socket.on("disconnect", (reason) => {
+    console.log(`A user disconnected. Reason:${reason}`, socket.id);
   });
 
   socket.on("like-interest", ({ postId, interestIndex, username }) => {
@@ -283,22 +287,18 @@ io.on("connection", (socket) => {
 
           io.emit("interest-liked", {
             postId: postId,
-            interestIndex: interestIndex,
+            index: interestIndex,
             like: updatedLikeCount,
             name: interestName,
           });
 
           io.emit("notification", {
-            message: `@${username} Liked👍 @${targetUser}'s Interest of ${theme}: ❤️${interestName}`,
+            message: `@${username} Liked👍 @${targetUser}'s Interest of ${theme}: ${interestName}`,
           });
         });
       }
       );
     });
-  });
-
-  socket.on("disconnect", () => {
-    console.log("A user disconnected:", socket.id);
   });
 });
 

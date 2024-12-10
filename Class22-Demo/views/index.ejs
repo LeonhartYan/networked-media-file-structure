@@ -12,7 +12,7 @@
 
 <body>
   <%- include('nav.ejs') %>
-
+<div class="occupie"></div>
     <div class="visits-counter">
       <%=visitsToSite%>
     </div>
@@ -36,7 +36,10 @@
     </div>
 </body>
 <script>
-  const socket = io();
+  const socket = io({reconnection: true,
+    reconnectionAttempts: 10,
+    reconnectionDelay: 5000 });
+  
   socket.on("notification", (data) => {
     console.log("Notification received:", data);
 
@@ -61,10 +64,12 @@
     const like = data.like;
     const name = data.name;
     const likeArea = document.getElementById(`likeArea-${id}-${name}`)
-    const newSize =  5 + like * 2;
-    likeArea.textContent = `点赞 ❤️ (${like})`;
+    const newSize =  6 + like;
+    const fontSize = 1 + like*0.5;
+    likeArea.textContent = `❤️ ${like}`;
     likeArea.style.width = `${newSize}vh`;
     likeArea.style.height = `${newSize}vh`;
+    likeArea.style.fontSize = `${fontSize}vh`
   });
 
   document.querySelectorAll(".interest-like-btn").forEach((btn) => {

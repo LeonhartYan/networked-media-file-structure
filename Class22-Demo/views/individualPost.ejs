@@ -1,21 +1,20 @@
 <div class="post">
-
-  <form method="POST" action="/like">
-    <input type="submit" value="like this post" id="like-message-<%=post._id%>">
-    <label for="like-message-<%=post._id%>"> ❤️ <%=post.likes%></label>
-    <input type="hidden" name="postId" value="<%=post._id%>">
-  </form>
-  <h1 class="post-name">
+  <div class="post-name">
+  <h1>
     <%= post.theme%>
   </h1>
-  <p class="post-owner">
+</div>
+<div class="post-owner">
+  <p>
     <%= post.user%>
   </p>
-  <span class="date">
+</div>
+<div class="date">
+  <span>
     <%= post.date %>
   </span>
+</div>
 
-  <ul>
     <div class="starmap" id="starmap-<%= post._id %>">
       <% 
 const generateCoordinates = (count, xRange, yRange, minDistance) => {
@@ -37,7 +36,7 @@ const generateCoordinates = (count, xRange, yRange, minDistance) => {
   return coordinates;
 };
    
-      const coordinates = generateCoordinates(5, { min: 10, max: 80 }, { min: 10, max: 80 }, 20);
+      const coordinates = generateCoordinates(5, { min: 15, max: 75 }, { min: 15, max: 75 }, 25);
    %>
 
     <% post.interests.forEach((interest, index)=> { %>
@@ -45,38 +44,42 @@ const generateCoordinates = (count, xRange, yRange, minDistance) => {
       style=
       "left: <%= coordinates[index]?.x %>%; 
       top: <%= coordinates[index]?.y %>%; 
-      width: <%= 5 + interest.likes *2 %>vh; 
-      height: <%= 5+ interest.likes *2 %>vh;" 
+      width: <%= 6 + interest.likes %>vh; 
+      height: <%= 6+ interest.likes %>vh;
+      font-size:<%= 1+ interest.likes*0.5 %>vh;" 
       id="likeArea-<%= post._id %>-<%= interest.name %>" 
       data-post-id="<%= post._id %>"
-        data-interest-index="<%= index %>">
-            <p>Interest <%= index + 1 %> </p>
-            <br>
-            <%= interest.name %>
-            <br>
-                ❤️ (<%= interest.likes %>)
+      data-interest-index="<%= index %>"
+      data-name="<%= interest.name %>">
+            <p class="likes">❤️ <%= interest.likes %></p>
+            <div class="tip"><%= index + 1 %>. <%= interest.name %></div>
       </div>
       <% }) %>
     </div>
-  </ul>
 
   <a href="/post/<%=post._id%>">
     <% if(post.image) { %>
       <img src="<%=post.image %>" />
       <% } %>
   </a>
+<div class="form-container">
+  <form method="POST" action="/like">
+    <input type="submit" value="Like This Post" id="like-message-<%=post._id%>">
+    <label for="like-message-<%=post._id%>"> ❤️ <%=post.likes%></label>
+    <input type="hidden" name="postId" value="<%=post._id%>">
+  </form>
+
+  <form method="POST" action="/comment">
+    <input type="text" name="comment" placeholder="Sparkle the Interests!">
+    <input type="hidden" name="postId" value="<%=post._id%>">
+    <input type="submit" name="commentbtn" value="Add a Comment">
+  </form>
 
   <form method="POST" action="/remove">
     <input type="submit" value="Delete" />
     <input type="hidden" name="postId" value="<%=post._id%>" />
   </form>
-
-  <form method="POST" action="/comment">
-    <input type="text" name="comment" placeholder="add a kind comment...">
-    <input type="hidden" name="postId" value="<%=post._id%>">
-    <input type="submit" name="commentbtn" value="add a comment">
-  </form>
-
+</div>
   <div>
     <% post.comments.forEach((comment)=>{ %>
       <div>

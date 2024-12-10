@@ -23,60 +23,129 @@ body {
     font-family: "Afacad Flux", "Noto Sans SC", sans-serif;
     font-weight: 500;
     font-style: normal;
-        margin: 0;
-        padding: 0;
-        width: 100%;
-        height: 100%;
-        background-color: #ffffff; /* 白色背景 */
-        background-image: url('/contour-lines.png') ; /* 等高线背景图（需要提供） */
-        background-repeat: repeat;
-        background-size: cover;
-        color: #1c2541; /* 深蓝色文字 */
-    
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #ffffff;
+    background-image: url('/contour-lines.png') ;
+    background-repeat: repeat;
+    background-size: cover;
+    color: #1c2541;
+}
+
+div{
+    border: 1px solid #ef233c;
+}
+
+.occupie{
+    background-color: #ffffff; 
+    border-bottom: 1px solid #dcdcdc;
+    height: 7vh;
+    width: 100%;
+    top: 0;
+    left: 0;
+    padding: 10px 20px;
 }
 
 .nav {
-    background-color: #ffffff; /* 白色背景 */
-    border-bottom: 1px solid #dcdcdc; /* 浅灰色底边 */
-    color: #1c2541; /* 深蓝色文字 */
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+    position: fixed;
+    z-index: 101;
+    background-color: #ffffff; 
+    border-bottom: 1px solid #dcdcdc;
+    color: #1c2541; 
+    height: 7vh;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: inline-flex;
     align-items: center;
+    justify-content: space-around;
     padding: 10px 20px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 浅阴影 */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
 }
 
 .nav a {
     text-decoration: none;
-    color: #1c2541; /* 深蓝色文字 */
+    color: #1c2541;
     font-weight: bold;
     padding: 5px 15px;
     transition: color 0.3s ease, border-bottom 0.3s ease;
 }
 
 .nav a:hover {
-    color: #ef233c; /* 红色高亮 */
+    color: #ef233c;
     border-bottom: 0px
 }
 
-.button {
-    border: 2px solid #f1c40f; /* 金色边框 */
-    background: transparent; /* 透明背景 */
-    color: #1c2541; /* 深蓝文字 */
-    padding: 10px 20px;
-    text-transform: uppercase;
+.nav .logo{
+    width: 40%;
+    display: flex;
+    align-items: center;
+    color:#fadebd;
+}
+
+.nav .logo img{
+    max-width: 25%;  
+    max-height: 100%;  
+    object-fit:cover;
+}
+
+input[type="submit"] {
+    font-family: "Afacad Flux", "Noto Sans SC", sans-serif;
+    font-weight: 500;
+    font-style: normal;
+    border: 0.25vh solid #2f4c79;
+    background: transparent; 
+    background-color: #d7ab61;
+    color: #1c2541;
+    padding: 1vh 0.75vw;
     font-weight: bold;
-    font-size: 14px;
+    font-size: 1.5vh;
     cursor: pointer;
     transition: all 0.3s ease;
 }
 
-.button:hover {
-    background: #f1c40f; /* 金色填充 */
-    color: #ffffff; /* 白色文字 */
+input[type="submit"]:hover {
+    background: #2f4c79;
+    color: #ffffff;
 }
 
+input[type="text"]{
+    border:0.25vh solid #2f4c79;
+    display: inline-flex;
+    background: transparent;
+    font-family: "Afacad Flux", "Noto Sans SC", sans-serif;
+    font-size: 1.5vh;
+    color: #d7ab61;
+    padding: 1vh 0.75vw;
+    white-space: pre-wrap; 
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    resize: vertical;
+    transition: height 0.3s ease, padding 0.5s ease, box-shadow 0.3s ease;
+}
+
+input[type="text"]:focus {
+    border-color: #393c45;
+    padding: 1.2vh 0.9vw;
+    box-shadow: 0 0 8px rgba(162, 178, 205, 0.8);
+    outline: none;
+}
+input[type="text"]:hover {
+    padding: 1.2vh 0.9vw;
+    box-shadow: 0 0 8px rgba(162, 178, 205, 0.8);
+    outline: none;
+}
+
+.form-container{
+    width: 95%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
 
 .all-posts {
     width: 100%;
@@ -84,91 +153,119 @@ body {
     flex-wrap: wrap;
     justify-content: space-evenly;
     align-items: flex-start;
-    gap: 20px;
+    gap:1.25vw;
 }
 
 .post {
     width: 40vw;
-    background-color: #ffffff; /* 白色背景 */
-    border-radius: 15px; /* 圆角 */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 浅阴影 */
+    background-color: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     padding: 20px;
     margin: 10px;
+    display: block;
 }
 
 .post h1 {
-    font-size: 1.5rem;
-    color: #1c2541; /* 深蓝色标题 */
+    font-size: 1.5vw;
+    color: #1c2541;
     font-weight: bold;
 }
 
 .post p {
-    font-size: 1rem;
-    color: #4f4f4f; /* 浅灰色正文文字 */
-}
-
-
-/* 星图样式 */
-.starmap {
-    position: relative;
-    width: 100%;
-    height: 50vh;
-    background-color: rgba(13, 27, 42, 0.8); /* 半透明深蓝 */
-    border: 1px solid #48cae4; /* 浅蓝色边框 */
-    border-radius: 10px; /* 圆角 */
-    margin-top: 10px;
-    overflow: hidden;
-    flex-shrink: 0;
+    display: flex;
+    align-items: center;
 }
 
 .starmap {
-    background-color: #1c2541; /* 深蓝色星空背景 */
-    background: url('/starfield-stars.png') no-repeat center center; /* 背景图 */
+    background-color: #1c2541;
+    background: url('/starfield-stars.png') no-repeat center center;
     background-size: cover; 
-    width: 100%;
+    width: 95%;
     height: 50vh;
     position: relative;
-    border-radius: 10px; /* 圆角 */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4); /* 浅阴影 */
+    border-radius: 1vh;
+    box-shadow: 0 0.5vh 0.5vh rgba(0, 0, 0, 0.4);
     overflow: hidden;
     pointer-events: auto;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 2vh;
 }
 
 .interest-like-btn {
     position: absolute;
-    background: linear-gradient(135deg, #f1c40f, #ffffff); /* 金色到红色渐变 */
-    border: 2px solid #ffffff; /* 白色边框 */
-    color: #ffffff; /* 白色文字 */
-    width: 40px;
-    height: 40px;
+    left: 50%;
+    top: 50%;
+    background: linear-gradient(165deg,#001024, #003472, #ffffff);
+    outline: 0.3vh solid #003472;
+    border: 0.3vh solid #ffffff;
+    color: #ffffff;
     border-radius: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    z-index: 100; /* 确保按钮处于最顶层 */
+    transition: width 0.3s ease-out, height 0.3s ease-out, transform 0.3s ease, box-shadow 0.3s ease;
+    z-index: 100;
     pointer-events: auto;
+    user-select: none;
 }
 
 .interest-like-btn:hover {
     transform: scale(1.2);
-    box-shadow: 0 0 10px rgba(255, 255, 255, 0.6);
+    box-shadow: 0 0 1vh rgba(255, 255, 255, 0.6);
 }
-
 
 .interest-like-btn:active {
     transform: scale(0.95);
-    box-shadow: 0 0 5px rgba(255, 255, 255, 0.6);
+    box-shadow: 0 0 1vh rgba(255, 255, 255, 0.6);
 }
 
 .interest-like-btn:focus {
     outline: none;
 }
 
+.tip {
+    position: absolute;
+    top: 0%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #ffffff;
+    color: #1c2541;
+    padding: 0.2vw 1vh;
+    border-radius: 0.5vh;
+    font-size: 1.25vh;
+    white-space: nowrap;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    opacity: 0;
+    pointer-events: none;
+    z-index: 100;
+    user-select: none;
+    transition: opacity 0.3s ease, top 0.3s ease;
+}
+
+.interest-like-btn:hover .likes {
+    opacity: 0;
+}
+
+.interest-like-btn:hover .tip {
+    opacity: 1;
+    top: -50%;
+}
+
+
+.likes {
+    color: #ffffff;
+    margin: 0;
+    transition: opacity 0.3s ease;
+}
+
 .line {
     position: absolute;
     height: 2px;
-    background-color: #48cae4; /* 浅蓝色线条 */
-    transform-origin: 0 50%; /* 旋转中心 */
-    opacity: 0.8; /* 半透明效果 */
+    background-color: #48cae4;
+    transform-origin: 0 50%;
+    opacity: 0.8;
 }
