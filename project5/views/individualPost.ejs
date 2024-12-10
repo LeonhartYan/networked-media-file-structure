@@ -1,0 +1,90 @@
+<div class="post">
+  <div class="post-name">
+  <h1>
+    <%= post.theme%>
+  </h1>
+</div>
+<div class="post-owner">
+  <p>
+    <%= post.user%>
+  </p>
+</div>
+<div class="date">
+  <span>
+    <%= post.date %>
+  </span>
+</div>
+
+    <div class="starmap" id="starmap-<%= post._id %>">
+      <% 
+const generateCoordinates = (count, xRange, yRange, minDistance) => {
+  const coordinates = [];
+
+  while (coordinates.length < count) {
+    const x = Math.random() * (xRange.max - xRange.min) + xRange.min;
+    const y = Math.random() * (yRange.max - yRange.min) + yRange.min;
+    const isValid = coordinates.every(coord => {
+    const distance = Math.sqrt(Math.pow(coord.x - x, 2) + Math.pow(coord.y - y, 2));
+    return distance >= minDistance;
+    });
+
+    if (isValid) {
+      coordinates.push({ x, y });
+    }
+  }
+
+  return coordinates;
+};
+   
+      const coordinates = generateCoordinates(5, { min: 15, max: 75 }, { min: 15, max: 75 }, 25);
+   %>
+
+    <% post.interests.forEach((interest, index)=> { %>
+      <div class="interest-like-btn" 
+      style=
+      "left: <%= coordinates[index]?.x %>%; 
+      top: <%= coordinates[index]?.y %>%; 
+      width: <%= 6 + interest.likes %>vh; 
+      height: <%= 6+ interest.likes %>vh;
+      font-size:<%= 1+ interest.likes*0.5 %>vh;" 
+      id="likeArea-<%= post._id %>-<%= interest.name %>" 
+      data-post-id="<%= post._id %>"
+      data-interest-index="<%= index %>"
+      data-name="<%= interest.name %>">
+            <p class="likes">❤️ <%= interest.likes %></p>
+            <div class="tip"><%= index + 1 %>. <%= interest.name %></div>
+      </div>
+      <% }) %>
+    </div>
+
+  <a href="/post/<%=post._id%>">
+    <% if(post.image) { %>
+      <img src="<%=post.image %>" />
+      <% } %>
+  </a>
+<div class="form-container">
+  <form method="POST" action="/like">
+    <input type="submit" value="Like This Post" id="like-message-<%=post._id%>">
+    <label for="like-message-<%=post._id%>"> ❤️ <%=post.likes%></label>
+    <input type="hidden" name="postId" value="<%=post._id%>">
+  </form>
+
+  <form method="POST" action="/comment">
+    <input type="text" name="comment" placeholder="Sparkle the Interests!">
+    <input type="hidden" name="postId" value="<%=post._id%>">
+    <input type="submit" name="commentbtn" value="Add a Comment">
+  </form>
+
+  <form method="POST" action="/remove">
+    <input type="submit" value="Delete" />
+    <input type="hidden" name="postId" value="<%=post._id%>" />
+  </form>
+</div>
+  <div>
+    <% post.comments.forEach((comment)=>{ %>
+      <div>
+        <%= comment %>
+      </div>
+      <% }) %>
+  </div>
+</div>
