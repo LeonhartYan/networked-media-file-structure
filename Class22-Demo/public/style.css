@@ -1,4 +1,4 @@
-body{
+body {
     /* ensuring body element fills entire window of screen */
     margin: 0;
     padding: 0;
@@ -14,11 +14,8 @@ body{
 }
 
 /* setting width of all content containers to be the same */
-.search-container, .form-container, .all-posts, .nav{
-    width: 66%;
-}
 
-.nav{
+.nav {
     /* adding border to nav bar */
     border: solid hotpink 2px;
     /* center the links */
@@ -34,43 +31,70 @@ body{
 }
 
 /* grabbing all a tags inside of the nav bar */
-.nav a{
+.nav a {
     margin: 10px;
     /* /////////////////// */
     display: inline-block;
 }
 
-.search-container form{
+.search-container form {
     display: flex;
     flex-direction: column;
 }
-.form-container form{
+
+.form-container form {
     display: flex;
     flex-direction: row;
     gap: 10px;
 }
 
-.form-container input[type='text']{
+.form-container input[type='text'] {
     flex-grow: 3;
 }
-.form-container input[type='submit']{
+
+.form-container input[type='submit'] {
     flex-grow: 1;
 }
 
-.log-container{
-    transition :opacity 1s ease;
+.log-container {
+    transition: opacity 1s ease;
 }
 
-.post{
-    width: 80%;
+.remove-button {
+    display: none;
+}
+
+.remove-label {
+    transform: rotate(45deg);
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+}
+
+
+.all-posts {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-items: flex-start;
+    gap: 20px;
+}
+
+.post {
+    width: 40vw;
+    height: auto;
     border: 1px hotpink solid;
-    /* shorthand for margin-top and margin-bottom */
-    margin: 2px 0px;
+    margin: 10px;
     padding: 5px;
+    display: flex;
+    flex-direction: column;
     position: relative;
 }
 
-.post a{
+
+.post a {
     text-decoration: none;
     color: black;
 }
@@ -81,14 +105,50 @@ body{
     max-height: 400px;
 }
 
-.remove-button{
-    display: none;
+.starmap {
+    position: relative;
+    width: 100%;
+    height: 50vh;
+    background-color: #000;
+    border: 1px solid #fff;
+    margin-top: 10px;
+    overflow: hidden;
+    flex-shrink: 0;
 }
 
-.remove-label{
-    transform: rotate(45deg);
+.interest-like-btn {
     position: absolute;
-    top: 10px;
-    right: 10px;
     cursor: pointer;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #4caf50;
+    border: none;
+    color: white;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s ease, transform 0.2s ease-in-out;
+}
+
+.interest-like-btn:hover {
+    background-color: #45a049;
+    transform: scale(1.1);
+}
+
+.interest-like-btn:active {
+    background-color: #3e8e41;
+    transform: scale(0.95);
+}
+
+.interest-like-btn:focus {
+    outline: none;
+}
+
+.line {
+    position: absolute;
+    height: 2px;
+    background-color: #fff;
+    transform-origin: 0 0;
 }

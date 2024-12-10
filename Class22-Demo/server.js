@@ -78,7 +78,7 @@ function requiresAuth(req, res, next) {
 // what is this?
 // A: route that handles when the client makes a request to /
 app.get("/", requiresAuth, (req, res) => {
-  const username = req.session.loggedInUser ? req.session.loggedInUser : 'Guest';
+  const username = req.session.loggedInUser
   // response.send("server working");
 
   // what steps do we need in order to use a template ejs file?
@@ -145,13 +145,13 @@ app.post("/upload", upload.single("theimage"), (req, res) => {
 });
 
 app.get("/starmap", (req, res) => {
-  const username = req.session.loggedInUser ? req.session.loggedInUser : 'Guest';
-  res.render("starmap.ejs", {username})
+  const username = req.session.loggedInUser
+  res.render("starmap.ejs", { username })
 })
 
 app.get("/search", (req, res) => {
   // query because get request
-  const username = req.session.loggedInUser ? req.session.loggedInUser : 'Guest';
+  const username = req.session.loggedInUser
   let searchTerm = req.query.searchTerm;
   let searchType = req.query.searchType || 'theme';
   let query;
@@ -249,19 +249,10 @@ io.on("connection", (socket) => {
   });
 
   socket.on("like-interest", ({ postId, interestIndex, username }) => {
-    if (!username) {
-      socket.emit("like-failed", { postId, interestIndex, message: "User not logged in" });
-      return;
-    }
     const likeByPath = `interests.${interestIndex}.likedBy`;
     const likeCountPath = `interests.${interestIndex}.likes`;
     database.findOne({ _id: postId }, (err, post) => {
-      if (err || !post) {
-        socket.emit("like-failed", { postId, interestIndex, message: "Post not found" });
-        return;
-      }
       const likedBy = post.interests[interestIndex].likedBy || [];
-
       if (likedBy.includes(username)) {
         socket.emit("like-failed", { postId, interestIndex, message: "Already liked" });
         return;
@@ -298,7 +289,7 @@ io.on("connection", (socket) => {
           });
 
           io.emit("notification", {
-            message: `${username} Liked ${targetUser}'s Interest of ${theme}: ${interestName}`,
+            message: `@${username} Liked👍 @${targetUser}'s Interest of ${theme}: ❤️${interestName}`,
           });
         });
       }
@@ -319,16 +310,16 @@ io.on("connection", (socket) => {
 app.post('/comment', (req, res) => {
   let id = req.body.postId
   let commentText = req.body.comment
+  const username = req.session.loggedInUser
 
   let query = {
     _id: id
   }
   let update = {
-    $push: { comments: commentText }
+    $push: { comments: `@${username}: ${commentText}` }
   }
   database.update(query, update, {}, (err, num) => {
-    io.emit("new-comment", { postId: id, comment: commentText });
-    res.end
+    res.redirect('/')
   })
 })
 

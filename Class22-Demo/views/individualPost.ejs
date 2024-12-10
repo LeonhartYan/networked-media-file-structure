@@ -5,31 +5,67 @@
     <label for="like-message-<%=post._id%>"> ❤️ <%=post.likes%></label>
     <input type="hidden" name="postId" value="<%=post._id%>">
   </form>
-  <h1 class="post-name"><%= post.theme%></h1>
-  <p class="post-owner"><%= post.user%></p>
-  <span class="date"> <%= post.date %></span>
+  <h1 class="post-name">
+    <%= post.theme%>
+  </h1>
+  <p class="post-owner">
+    <%= post.user%>
+  </p>
+  <span class="date">
+    <%= post.date %>
+  </span>
 
   <ul>
-    <% post.interests.forEach((interest, index) => { %>
-      <li>
-        <strong>兴趣 <%= index + 1 %>:</strong> <%= interest.name %>
-        <button 
-          class="interest-like-btn" 
-          id="likeArea<%= interest.name %>" 
-          data-post-id="<%= post._id %>" 
-          data-interest-index="<%= index %>">
-          点赞 ❤️ (<%= interest.likes %>)
-        </button>
-      </li>
-    <% }) %>
+    <div class="starmap" id="starmap-<%= post._id %>">
+      <% 
+const generateCoordinates = (count, xRange, yRange, minDistance) => {
+  const coordinates = [];
+
+  while (coordinates.length < count) {
+    const x = Math.random() * (xRange.max - xRange.min) + xRange.min;
+    const y = Math.random() * (yRange.max - yRange.min) + yRange.min;
+    const isValid = coordinates.every(coord => {
+    const distance = Math.sqrt(Math.pow(coord.x - x, 2) + Math.pow(coord.y - y, 2));
+    return distance >= minDistance;
+    });
+
+    if (isValid) {
+      coordinates.push({ x, y });
+    }
+  }
+
+  return coordinates;
+};
+   
+      const coordinates = generateCoordinates(5, { min: 10, max: 80 }, { min: 10, max: 80 }, 20);
+   %>
+
+    <% post.interests.forEach((interest, index)=> { %>
+      <div class="interest-like-btn" 
+      style=
+      "left: <%= coordinates[index]?.x %>%; 
+      top: <%= coordinates[index]?.y %>%; 
+      width: <%= 5 + interest.likes *2 %>vh; 
+      height: <%= 5+ interest.likes *2 %>vh;" 
+      id="likeArea-<%= post._id %>-<%= interest.name %>" 
+      data-post-id="<%= post._id %>"
+        data-interest-index="<%= index %>">
+            <p>Interest <%= index + 1 %> </p>
+            <br>
+            <%= interest.name %>
+            <br>
+                ❤️ (<%= interest.likes %>)
+      </div>
+      <% }) %>
+    </div>
   </ul>
-  
+
   <a href="/post/<%=post._id%>">
     <% if(post.image) { %>
-    <img src="<%=post.image %>" />
-    <% } %>
+      <img src="<%=post.image %>" />
+      <% } %>
   </a>
-  
+
   <form method="POST" action="/remove">
     <input type="submit" value="Delete" />
     <input type="hidden" name="postId" value="<%=post._id%>" />
@@ -46,6 +82,6 @@
       <div>
         <%= comment %>
       </div>
-    <% }) %>
+      <% }) %>
   </div>
 </div>

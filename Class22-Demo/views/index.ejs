@@ -52,16 +52,20 @@
   });
 
   socket.on("interest-liked", (data) => {
-    console.log("Interest liked event received:", data);
+    const id = data.postId
+    const index = data.index
     const like = data.like;
     const name = data.name;
-    const likeArea = document.getElementById(`likeArea${name}`)
+    const likeArea = document.getElementById(`likeArea-${id}-${name}`)
+    const newSize =  5 + like * 2;
     likeArea.textContent = `点赞 ❤️ (${like})`;
+    likeArea.style.width = `${newSize}vh`;
+    likeArea.style.height = `${newSize}vh`;
   });
 
   document.querySelectorAll(".interest-like-btn").forEach((btn) => {
     btn.addEventListener("click", (e) => {
-      e.preventDefault();
+      //e.preventDefault();
 
       const postId = btn.getAttribute("data-post-id");
       const interestIndex = btn.getAttribute("data-interest-index");
