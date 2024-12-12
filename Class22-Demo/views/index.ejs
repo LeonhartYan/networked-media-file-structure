@@ -36,52 +36,71 @@
     </div>
 </body>
 <script>
-  const socket = io({reconnection: true,
-    reconnectionAttempts: 10,
-    reconnectionDelay: 5000 });
-  
-  socket.on("notification", (data) => {
-    console.log("Notification received:", data);
-
-    const logBoard = document.getElementById("notification-container");
-    const logMessage = document.createElement("div");
-    logMessage.classList.add("log-container")
-    logMessage.textContent = data.message;
-    logBoard.appendChild(logMessage);
-    setTimeout(() => {
-      logMessage.style.transition = "opacity 1s ease";
-      logMessage.style.opacity = "0";
-
-      setTimeout(() => {
-        logBoard.removeChild(logMessage);
-      }, 1000);
-    }, 3000);
-  });
-
-  socket.on("interest-liked", (data) => {
-    const id = data.postId
-    const index = data.index
-    const like = data.like;
-    const name = data.name;
-    const likeArea = document.getElementById(`likeArea-${id}-${name}`)
-    const newSize =  6 + like;
-    const fontSize = 1 + like*0.5;
-    likeArea.textContent = `❤️ ${like}`;
-    likeArea.style.width = `${newSize}vh`;
-    likeArea.style.height = `${newSize}vh`;
-    likeArea.style.fontSize = `${fontSize}vh`
-  });
-
-  document.querySelectorAll(".interest-like-btn").forEach((btn) => {
-    btn.addEventListener("click", (e) => {
-      //e.preventDefault();
-
-      const postId = btn.getAttribute("data-post-id");
-      const interestIndex = btn.getAttribute("data-interest-index");
-      const username = "<%= username %>"
-      socket.emit("like-interest", { postId, interestIndex, username });
+  try {
+    const socket = io({
+      reconnection: true,
+      reconnectionAttempts: 10,
+      reconnectionDelay: 1000,
     });
-  });
+
+    socket.on("notification", (data) => {
+      try {
+        console.log("Notification received:", data);
+
+        const logBoard = document.getElementById("notification-container");
+        const logMessage = document.createElement("div");
+        logMessage.classList.add("log-container");
+        logMessage.textContent = data.message;
+        logBoard.appendChild(logMessage);
+        setTimeout(() => {
+          logMessage.style.transition = "opacity 1s ease";
+          logMessage.style.opacity = "0";
+
+          setTimeout(() => {
+            logBoard.removeChild(logMessage);
+          }, 1000);
+        }, 3000);
+      } catch (err) {
+        console.error("Error processing notification:", err);
+      }
+    });
+
+    socket.on("interest-liked", (data) => {
+      try {
+        const id = data.postId;
+        const index = data.index;
+        const like = data.like;
+        const name = data.name;
+        const likeArea = document.getElementById(`likeArea-${id}-${name}`);
+        if (likeArea) {
+          const newSize = 6 + like;
+          const fontSize = 1 + like * 0.5;
+          likeArea.textContent = `❤️ ${like}`;
+          likeArea.style.width = `${newSize}vh`;
+          likeArea.style.height = `${newSize}vh`;
+          likeArea.style.fontSize = `${fontSize}vh`;
+        }
+      } catch (err) {
+        console.error("Error updating likes:", err);
+      }
+    });
+
+    document.querySelectorAll(".interest-like-btn").forEach((btn) => {
+      btn.addEventListener("click", (e) => {
+        try {
+          const postId = btn.getAttribute("data-post-id");
+          const interestIndex = btn.getAttribute("data-interest-index");
+          const username = "<%= username %>";
+          socket.emit("like-interest", { postId, interestIndex, username });
+        } catch (err) {
+          console.error("Error emitting like-interest event:", err);
+        }
+      });
+    });
+  } catch (err) {
+    console.error("Error initializing socket connection:", err);
+  }
 </script>
+
 
 </html>
