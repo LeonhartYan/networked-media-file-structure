@@ -253,57 +253,57 @@ app.post("/like", (req, res) => {
 
 io.on("connection", (socket) => {
   console.log("A user connected:", socket.id);
+
   socket.on("disconnect", (reason) => {
-    console.log(`A user disconnected. Reason:${reason}`, socket.id);
+    console.log(`A user disconnected. Reason: ${reason}`, socket.id);
   });
 
-  socket.on("like-interest", ({ postId, interestIndex, username }) => {
-    const likeByPath = `interests.${interestIndex}.likedBy`;
-    const likeCountPath = `interests.${interestIndex}.likes`;
-    database.findOne({ _id: postId }, (err, post) => {
-      const likedBy = post.interests[interestIndex].likedBy || [];
+  socket.on("like-interest", async ({ postId, interestIndex, username }) => {
+    try {
+      const likeByPath = `interests.${interestIndex}.likedBy`;
+      const likeCountPath = `interests.${interestIndex}.likes`;
+
+      const post = await database.findOne({ _id: postId });
+      if (!post) throw new Error("Post not found");
+
+      const likedBy = post.interests[interestIndex]?.likedBy || [];
       if (likedBy.includes(username)) {
         socket.emit("like-failed", { postId, interestIndex, message: "Already liked" });
         return;
       }
+
       const targetUser = post.user;
       const theme = post.theme;
-      const interestName = post.interests[interestIndex].name;
-      let query = {
-        _id: postId,
-      };
-      let update = {
+      const interestName = post.interests[interestIndex]?.name || "Unknown";
+
+      const query = { _id: postId };
+      const update = {
         $inc: { [likeCountPath]: 1 },
         $push: { [likeByPath]: username },
       };
-      database.update(query, update, {}, (err, numUpdated) => {
-        if (err || numUpdated === 0) {
-          socket.emit("like-failed", { postId, interestIndex, message: "Failed to update likes" });
-          return;
-        }
 
-        database.findOne({ _id: postId }, (err, updatedPost) => {
-          if (err || !updatedPost) {
-            socket.emit("like-failed", { postId, interestIndex, message: "Failed to fetch updated post" });
-            return;
-          }
+      const numUpdated = await database.update(query, update, {});
+      if (numUpdated === 0) throw new Error("Failed to update likes");
 
-          const updatedLikeCount = updatedPost.interests[interestIndex].likes;
+      const updatedPost = await database.findOne({ _id: postId });
+      if (!updatedPost) throw new Error("Failed to fetch updated post");
 
-          io.emit("interest-liked", {
-            postId: postId,
-            index: interestIndex,
-            like: updatedLikeCount,
-            name: interestName,
-          });
+      const updatedLikeCount = updatedPost.interests[interestIndex]?.likes;
 
-          io.emit("notification", {
-            message: `@${username} Liked👍 @${targetUser}'s Interest of ${theme}: ${interestName}`,
-          });
-        });
-      }
-      );
-    });
+      io.emit("interest-liked", {
+        postId: postId,
+        index: interestIndex,
+        like: updatedLikeCount,
+        name: interestName,
+      });
+
+      io.emit("notification", {
+        message: `@${username} Liked👍 @${targetUser}'s Interest of ${theme}: ${interestName}`,
+      });
+    } catch (err) {
+      console.error("Error in 'like-interest' event:", err);
+      socket.emit("error", { message: "An internal server error occurred." });
+    }
   });
 });
 
