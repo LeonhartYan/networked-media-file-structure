@@ -96,7 +96,8 @@ app.post('/delete', (req, res)=>{
 // setting up the server to start
 // LAST PIECE OF CODE
 // for projects going forward, it CANNOT be 80
-app.listen(5050, ()=> {
-    console.log('server starts')
+const PORT = process.env.PORT || 5050
+app.listen(PORT, ()=> {
+    console.log('server starts on port', PORT)
 })
 

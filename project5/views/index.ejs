@@ -36,50 +36,54 @@
     </div>
 </body>
 <script>
-  const socket = io({reconnection: true,
-    reconnectionAttempts: 10,
-    reconnectionDelay: 5000 });
-  
-  socket.on("notification", (data) => {
-    console.log("Notification received:", data);
+  // 不限重连次数（原来 10 次 × 5 秒后就永久放弃，服务器重启或手机锁屏一会儿后点赞就再也没反应）
+  const socket = io({
+    reconnection: true,
+    reconnectionDelay: 1000,
+    reconnectionDelayMax: 10000
+  });
 
+  function showNotice(text) {
     const logBoard = document.getElementById("notification-container");
     const logMessage = document.createElement("div");
     logMessage.classList.add("log-container")
-    logMessage.textContent = data.message;
+    logMessage.textContent = text;
     logBoard.appendChild(logMessage);
     setTimeout(() => {
       logMessage.style.transition = "opacity 1s ease";
       logMessage.style.opacity = "0";
-
-      setTimeout(() => {
-        logBoard.removeChild(logMessage);
-      }, 1000);
+      setTimeout(() => logMessage.remove(), 1000);
     }, 3000);
-  });
+  }
+
+  socket.on("notification", (data) => showNotice(data.message));
+  socket.on("like-failed", (data) => showNotice(data.message));
+  socket.on("connect_error", (err) => console.warn("Socket connect error:", err.message));
 
   socket.on("interest-liked", (data) => {
-    const id = data.postId
-    const index = data.index
     const like = data.like;
-    const name = data.name;
-    const likeArea = document.getElementById(`likeArea-${id}-${name}`)
-    const newSize =  6 + like;
-    const fontSize = 1 + like*0.5;
-    likeArea.textContent = `❤️ ${like}`;
+    const likeArea = document.getElementById(`likeArea-${data.postId}-${data.index}`)
+    if (!likeArea) return; // 这张星图不在当前页面（比如搜索结果页）
+    const newSize = 6 + like;
+    const fontSize = 1 + like * 0.5;
+    // 只改数字那一行，保留悬停提示（原来 textContent 会把兴趣名称的 tip 一起清掉）
+    const count = likeArea.querySelector(".likes");
+    if (count) count.textContent = `❤️ ${like}`;
     likeArea.style.width = `${newSize}vh`;
     likeArea.style.height = `${newSize}vh`;
     likeArea.style.fontSize = `${fontSize}vh`
   });
 
   document.querySelectorAll(".interest-like-btn").forEach((btn) => {
-    btn.addEventListener("click", (e) => {
-      //e.preventDefault();
-
-      const postId = btn.getAttribute("data-post-id");
-      const interestIndex = btn.getAttribute("data-interest-index");
-      const username = "<%= username %>"
-      socket.emit("like-interest", { postId, interestIndex, username });
+    btn.addEventListener("click", () => {
+      if (!socket.connected) {
+        showNotice("Reconnecting to the Galaxy… please try again in a moment.");
+        return;
+      }
+      socket.emit("like-interest", {
+        postId: btn.getAttribute("data-post-id"),
+        interestIndex: btn.getAttribute("data-interest-index")
+      });
     });
   });
 </script>

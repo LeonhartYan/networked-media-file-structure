@@ -16,7 +16,7 @@ const cookieParser = require("cookie-parser");
 // ****************************************************************
 const expressSession = require('express-session')
 const nedbSessionStore = require('nedb-promises-session-store')
-const bcrypt = require('bcrypt')
+const bcrypt = require('bcryptjs')
 const http = require("http");
 const { Server } = require("socket.io");
 
@@ -26,10 +26,47 @@ const urlEncodedParser = bodyParser.urlencoded({ extended: true });
 // what is app?
 // A: instance of express
 const app = express();
+
+// When部署在反向代理后（如 Nginx/Render/Heroku），可通过环境变量开启 trust proxy
+if (process.env.TRUST_PROXY === '1') {
+  app.set('trust proxy', 1)
+}
+
 const server = http.createServer(app);
 const io = new Server(server, {
   pingInterval: 25000, 
   pingTimeout: 50000, 
+  cors: {
+    origin: process.env.SIO_ORIGIN || true,
+    methods: ["GET", "POST"],
+    credentials: true
+  },
+  transports: ["websocket", "polling"],
+});
+
+// Basic diagnostics for HTTP and Socket.IO
+server.on('error', (err) => {
+  console.error('HTTP server error:', err);
+});
+
+io.on('error', (err) => {
+  console.error('Socket.IO server error:', err);
+});
+
+if (io.engine && typeof io.engine.on === 'function') {
+  io.engine.on('connection_error', (err) => {
+    console.error('Socket.IO connection error:', err && err.message, {
+      code: err && err.code,
+      context: err && err.context
+    });
+  });
+}
+
+process.on('unhandledRejection', (reason, p) => {
+  console.error('Unhandled Rejection at Promise', p, 'reason:', reason);
+});
+process.on('uncaughtException', (err) => {
+  console.error('Uncaught Exception thrown', err);
 });
 
 // what is this configuring?
@@ -49,6 +86,20 @@ app.use(urlEncodedParser); // middleware to make sure the bits and bytes can be 
 app.use(cookieParser());
 app.set("view engine", "ejs"); // allows us to use ejs
 
+// health check endpoints for load balancers / uptime monitors
+app.get('/healthz', (req, res) => {
+  res.status(200).send('ok')
+})
+app.get('/readyz', async (req, res) => {
+  try {
+    // lightweight check to ensure datastore is responsive
+    await database.compactDatafileAsync()
+    res.status(200).send('ready')
+  } catch (e) {
+    res.status(500).send('not-ready')
+  }
+})
+
 // ****************************************************************
 // NEW middleware to handle sessions, auth, encryption
 // ****************************************************************
@@ -56,15 +107,23 @@ const nedbSessionInit = nedbSessionStore({
   connect: expressSession,
   filename: 'sessions.txt'
 })
-app.use(expressSession({
+const sessionMiddleware = expressSession({
   store: nedbSessionInit,
   cookie: {
-    maxAge: 365 * 24 * 60 * 60 * 1000
+    maxAge: 365 * 24 * 60 * 60 * 1000,
+    // 部署在 HTTPS 反向代理后时设 COOKIE_SECURE=1（需同时 TRUST_PROXY=1）
+    secure: process.env.COOKIE_SECURE === '1',
+    sameSite: 'lax'
   },
-  secret: 'supersecret123',
+  // Socket.IO 的握手请求不经过 express，读不到 app 的 trust proxy，这里单独告诉 session 信任代理
+  proxy: process.env.TRUST_PROXY === '1',
+  secret: process.env.SESSION_SECRET || 'supersecret123',
   resave: false,
   saveUninitialized: true
-}))
+})
+app.use(sessionMiddleware)
+// 让 Socket.IO 连接也能读到登录态：点赞人取服务器端 session，而不是信任浏览器传来的 username
+io.engine.use(sessionMiddleware)
 let userdatabase = new nedb({
   filename: 'userdb.txt',
   autoload: true
@@ -258,51 +317,46 @@ io.on("connection", (socket) => {
     console.log(`A user disconnected. Reason: ${reason}`, socket.id);
   });
 
-  socket.on("like-interest", async ({ postId, interestIndex, username }) => {
+  socket.on("like-interest", async (payload = {}) => {
+    const { postId } = payload;
+    const interestIndex = Number.parseInt(payload.interestIndex, 10);
+    const fail = (message) => socket.emit("like-failed", { postId, interestIndex, message });
     try {
+      // 点赞人以服务器 session 为准；浏览器传来的 username 一律忽略（原来可以伪造任何人点赞）
+      const username = socket.request.session && socket.request.session.loggedInUser;
+      if (!username) return fail("Please log in again to like.");
+      if (typeof postId !== "string" || !Number.isInteger(interestIndex)) return fail("Bad request.");
+
+      const post = await database.findOneAsync({ _id: postId });
+      if (!post) return fail("This starmap no longer exists.");
+      const interest = post.interests && post.interests[interestIndex];
+      if (!interest) return fail("This interest no longer exists.");
+
       const likeByPath = `interests.${interestIndex}.likedBy`;
       const likeCountPath = `interests.${interestIndex}.likes`;
 
-      const post = await database.findOne({ _id: postId });
-      if (!post) throw new Error("Post not found");
-
-      const likedBy = post.interests[interestIndex]?.likedBy || [];
-      if (likedBy.includes(username)) {
-        socket.emit("like-failed", { postId, interestIndex, message: "Already liked" });
-        return;
-      }
-
-      const targetUser = post.user;
-      const theme = post.theme;
-      const interestName = post.interests[interestIndex]?.name || "Unknown";
-
-      const query = { _id: postId };
-      const update = {
-        $inc: { [likeCountPath]: 1 },
-        $push: { [likeByPath]: username },
-      };
-
-      const numUpdated = await database.update(query, update, {});
-      if (numUpdated === 0) throw new Error("Failed to update likes");
-
-      const updatedPost = await database.findOne({ _id: postId });
-      if (!updatedPost) throw new Error("Failed to fetch updated post");
-
-      const updatedLikeCount = updatedPost.interests[interestIndex]?.likes;
+      // 一次原子更新：只有 likedBy 里还没有这个人时才 +1，连点 / 多标签页也不会重复计数
+      const { numAffected, affectedDocuments: updatedPost } = await database.updateAsync(
+        // 注意：nedb 对数组字段的 $ne 是逐元素比较，会误放行，所以用 $not
+        { _id: postId, $not: { [likeByPath]: username } },
+        { $inc: { [likeCountPath]: 1 }, $push: { [likeByPath]: username } },
+        { returnUpdatedDocs: true }
+      );
+      if (!numAffected) return fail("You already liked this one.");
 
       io.emit("interest-liked", {
-        postId: postId,
+        postId,
         index: interestIndex,
-        like: updatedLikeCount,
-        name: interestName,
+        like: updatedPost.interests[interestIndex].likes,
+        name: interest.name,
       });
 
       io.emit("notification", {
-        message: `@${username} Liked👍 @${targetUser}'s Interest of ${theme}: ${interestName}`,
+        message: `@${username} Liked👍 @${post.user}'s Interest of ${post.theme}: ${interest.name}`,
       });
     } catch (err) {
       console.error("Error in 'like-interest' event:", err);
-      socket.emit("error", { message: "An internal server error occurred." });
+      fail("Server error, please try again.");
     }
   });
 });
@@ -399,12 +453,15 @@ app.get('/logout', requiresAuth, (req, res) => {
   res.redirect('/login')
 })
 
-// what does the number signify?
-// A: port number!
-// how do we access this on the web?
-// A: ip address:port ex. localhost:6001
-server.listen(6001, () => {
-  console.log("server started on port 6001");
+// Tune HTTP keep-alive and header timeouts to avoid stalled sockets keeping the port busy
+// Node defaults changed in v18+. We set explicit conservative values for safety under load balancers.
+server.keepAliveTimeout = 65000; // should be > proxy idle timeout
+server.headersTimeout = 70000;   // slightly larger than keepAliveTimeout
+
+// prefer PORT from env when deployed
+const PORT = process.env.PORT || 6001;
+server.listen(PORT, () => {
+  console.log("server started on port", PORT);
 });
 
 // secret comment for later in the demo:

@@ -1,0 +1,32 @@
+# Render 一键部署（Blueprint）：Render 控制台 → New → Blueprint → 选这个仓库 → Apply
+# 两个站各自成为一个免费 Web Service，地址形如 https://ideal-galaxy-xxxx.onrender.com
+# 注意：免费实例的本地文件不持久，休眠 / 重启 / 重新部署后，数据会回到仓库里提交的那份。
+services:
+  - type: web
+    name: ideal-galaxy # 理想星系
+    runtime: node
+    plan: free
+    rootDir: project5
+    buildCommand: npm ci --omit=dev
+    startCommand: node server.js
+    healthCheckPath: /healthz
+    envVars:
+      - key: NODE_VERSION
+        value: "20"
+      - key: TRUST_PROXY
+        value: "1"
+      - key: COOKIE_SECURE
+        value: "1"
+      - key: SESSION_SECRET
+        generateValue: true
+
+  - type: web
+    name: trpg-community # 中式跑团
+    runtime: node
+    plan: free
+    rootDir: community
+    buildCommand: npm ci --omit=dev
+    startCommand: node server.js
+    envVars:
+      - key: NODE_VERSION
+        value: "20"

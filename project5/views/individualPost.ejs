@@ -47,7 +47,7 @@ const generateCoordinates = (count, xRange, yRange, minDistance) => {
       width: <%= 6 + interest.likes %>vh; 
       height: <%= 6+ interest.likes %>vh;
       font-size:<%= 1+ interest.likes*0.5 %>vh;" 
-      id="likeArea-<%= post._id %>-<%= interest.name %>" 
+      id="likeArea-<%= post._id %>-<%= index %>"
       data-post-id="<%= post._id %>"
       data-interest-index="<%= index %>"
       data-name="<%= interest.name %>">

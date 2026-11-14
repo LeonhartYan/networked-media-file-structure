@@ -1,0 +1,45 @@
+# 放到 /etc/nginx/sites-available/ 后软链到 sites-enabled，把域名换成你自己的。
+# 建议用子域名，不要用 /galaxy 这类子路径：两个站的页面里全是 /login、/posts、/socket.io 这样的绝对路径，挂子路径会全部 404。
+# HTTPS：sudo certbot --nginx -d galaxy.example.com -d trpg.example.com
+
+map $http_upgrade $connection_upgrade {
+    default upgrade;
+    ''      close;
+}
+
+# 理想星系（含 Socket.IO）
+server {
+    listen 80;
+    server_name galaxy.example.com;
+    client_max_body_size 20m;
+
+    location / {
+        proxy_pass http://127.0.0.1:6001;
+        proxy_http_version 1.1;
+        # 下面两行是 WebSocket 必需的；少了它们 Socket.IO 只能退回长轮询，或者反复断线重连
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection $connection_upgrade;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        # 默认 60 秒没数据就断；Socket.IO 心跳 25 秒一次，这里给足余量
+        proxy_read_timeout 120s;
+        proxy_send_timeout 120s;
+    }
+}
+
+# 中式跑团
+server {
+    listen 80;
+    server_name trpg.example.com;
+    client_max_body_size 20m;
+
+    location / {
+        proxy_pass http://127.0.0.1:5050;
+        proxy_http_version 1.1;
+        proxy_set_header Host $host;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+}
