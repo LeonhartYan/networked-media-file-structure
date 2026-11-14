@@ -46,7 +46,8 @@ app.get('/about', (req, res)=>{
 
 
 // array that stores all of the data on the server
-let data = []
+// 启动时载入示例帖子（复制一份，运行中新增的帖子不会改到 seedPosts.js）
+let data = require('./seedPosts.js').map((p) => ({ ...p }))
 const allTags = ["Scenarios Recommendation 团本推荐",
     "Scenarios Critique 团本拔草", "Run Session 跑团预警",  "Session Comment 跑团评价", "Chat 闲聊"]
 const tagsFilter = ["All Tags 全部标签", "Scenarios Recommendation 团本推荐",

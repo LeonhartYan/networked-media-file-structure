@@ -60,10 +60,11 @@
                             <%= arrayToBeSent[i].theme %>
                         </div>
                         <div class="messages-container">
-                            <% if(arrayToBeSent[i].imgSrc)%>
+                            <% if(arrayToBeSent[i].imgSrc){ %>
                                 <div class="item-image">
                                     <img src="<%= arrayToBeSent[i].imgSrc %>">
                                 </div>
+                            <% } %>
                                 <div class="message">
                                     <%= arrayToBeSent[i].text %>
                                 </div>
