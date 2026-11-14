@@ -28,15 +28,15 @@ const starmaps = [
     likes: 4,
   },
   {
-    user: 'nova', theme: 'Weekend Ritual 周末仪式', at: '2026-10-06 09:30',
-    interests: [['手冲咖啡', ['vega', 'atlas']], ['胶片相机', ['orion', 'atlas', OWNER]], ['旧书店', ['lyra']], ['晨跑', []], ['京都', ['atlas', 'lyra']]],
-    comments: [['orion', '胶片同好！你一般用什么卷？'], ['nova', '@orion 白天 Gold 200，晚上换 Portra 800']],
+    user: 'nova', theme: 'Weekend Ritual', at: '2026-10-06 09:30',
+    interests: [['Pour-over', ['vega', 'atlas']], ['Film Camera', ['orion', 'atlas', OWNER]], ['Bookstores', ['lyra']], ['Morning Run', []], ['Kyoto', ['atlas', 'lyra']]],
+    comments: [['orion', 'Fellow film shooter! Which stock do you use?'], ['nova', '@orion Gold 200 for daytime, Portra 800 after dark']],
     likes: 3,
   },
   {
-    user: 'orion', theme: 'Night Sky 夜空', at: '2026-10-09 23:48',
-    interests: [['观星', ['nova', 'atlas', 'lyra']], ['胶片相机', ['nova']], ['露营', ['atlas', 'vega']], ['猎户座', ['nova', OWNER]], ['星轨', ['atlas']]],
-    comments: [['atlas', '稻城亚丁的星空绝了，下次一起'], ['nova', '用胶片拍星轨要曝光多久？'], ['orion', '@nova B 门，一卷只拍得了两三张，但值得']],
+    user: 'orion', theme: 'Night Sky', at: '2026-10-09 23:48',
+    interests: [['Stargazing', ['nova', 'atlas', 'lyra']], ['Film Camera', ['nova']], ['Camping', ['atlas', 'vega']], ['Orion', ['nova', OWNER]], ['Star Trails', ['atlas']]],
+    comments: [['atlas', 'The sky over the Tibetan plateau was unreal. Next trip together?'], ['nova', 'How long do you expose for star trails on film?'], ['orion', '@nova Bulb mode, two or three frames a roll, but worth it']],
     likes: 5,
   },
   {
@@ -52,9 +52,9 @@ const starmaps = [
     likes: 4,
   },
   {
-    user: 'atlas', theme: 'Places I\'d Fly To 想去的地方', at: '2026-10-19 14:22',
-    interests: [['冰岛', ['orion', 'nova']], ['京都', ['lyra', 'nova', 'vega']], ['稻城亚丁', ['orion']], ['星空露营', ['orion', 'vega']], ['极光', ['orion', 'lyra']]],
-    comments: [['orion', '冰岛 + 极光 + 露营，我可以当摄影'], ['lyra', '京都秋天的红叶季！']],
+    user: 'atlas', theme: 'Places I\'d Fly To', at: '2026-10-19 14:22',
+    interests: [['Iceland', ['orion', 'nova']], ['Kyoto', ['lyra', 'nova', 'vega']], ['Patagonia', ['orion']], ['Desert Camping', ['orion', 'vega']], ['Aurora', ['orion', 'lyra']]],
+    comments: [['orion', 'Iceland + aurora + camping. I can be the photographer'], ['lyra', 'Kyoto in maple season!']],
     likes: 3,
   },
   {
@@ -64,15 +64,15 @@ const starmaps = [
     likes: 2,
   },
   {
-    user: 'orion', theme: 'Camping Kit 露营装备', at: '2026-10-28 19:15',
-    interests: [['帐篷', ['atlas']], ['头灯', []], ['炉头', ['vega']], ['露营火锅', ['vega', 'atlas', 'lyra']], ['星图App', ['nova', OWNER]]],
-    comments: [['vega', '露营火锅我来带锅底'], ['orion', '@vega 那就这么定了，牛油的']],
+    user: 'orion', theme: 'Camping Kit', at: '2026-10-28 19:15',
+    interests: [['Tent', ['atlas']], ['Headlamp', []], ['Camp Stove', ['vega']], ['Hotpot', ['vega', 'atlas', 'lyra']], ['Star Map App', ['nova', OWNER]]],
+    comments: [['vega', 'I\'ll bring the hotpot base'], ['orion', '@vega Deal. The spicy beef-tallow one']],
     likes: 2,
   },
   {
-    user: 'nova', theme: 'Sounds I Love 喜欢的声音', at: '2026-11-02 22:58',
-    interests: [['雨声', ['lyra', 'atlas']], ['黑胶', ['orion']], ['Jazz', ['orion', 'lyra', 'vega']], ['翻书声', ['lyra']], ['骰子声', [OWNER, 'lyra']]],
-    comments: [[OWNER, '骰子落桌那一下，跑团人的 DNA 动了'], ['lyra', '雨声 + Jazz 是写作业神器']],
+    user: 'nova', theme: 'Sounds I Love', at: '2026-11-02 22:58',
+    interests: [['Rain', ['lyra', 'atlas']], ['Vinyl', ['orion']], ['Jazz', ['orion', 'lyra', 'vega']], ['Page Turns', ['lyra']], ['Rolling Dice', [OWNER, 'lyra']]],
+    comments: [[OWNER, 'That clack of dice hitting the table. Every TRPG player knows it'], ['lyra', 'Rain + jazz is the best homework soundtrack']],
     likes: 5,
   },
   {

@@ -26,14 +26,14 @@
     <div class="textRight">中式跑团</div>
   </div>
   <div class="scene-bigContainer">
-    <div class="scene-container"><a href="/scenarios"><img src="" id="ranImg1"></a></div>
-    <div class="scene-container"><a href="/scenarios"><img src="" id="ranImg2"></a></div>
+    <div class="scene-container"><a id="sceneLink1" href="/scenarios"><img src="" id="ranImg1"></a></div>
+    <div class="scene-container"><a id="sceneLink2" href="/scenarios"><img src="" id="ranImg2"></a></div>
   </div>
   <script>
     var ranImg1 = document.getElementById("ranImg1");
     var ranImg2 = document.getElementById("ranImg2");
-    var ran1 = Math.floor(Math.random() * 3);
-    var ran2 = Math.floor(Math.random() * 3);
+    var ran1 = Math.floor(Math.random() * 4);
+    var ran2 = Math.floor(Math.random() * 4);
     var rotate = true;
     var rotate_timer = 0;
     var rotate_dura = 100;
@@ -43,8 +43,19 @@
     const scene1 = document.getElementsByClassName('scene-container')[0];
     const scene2 = document.getElementsByClassName('scene-container')[1];
     const title = document.getElementsByClassName('title')[0];
+    const sceneLink1 = document.getElementById('sceneLink1');
+    const sceneLink2 = document.getElementById('sceneLink2');
+    const idMap = ['jiebei','qihua','hongzhu','futu'];
+    function updateLinks() {
+      sceneLink1.href = '/scenarios#' + idMap[ran1];
+      sceneLink2.href = '/scenarios#' + idMap[ran2];
+    }
+    if (ran1 === ran2) {
+      ran2 = (ran2 + 1) % 4;
+    }
     ranImg1.src = "images/" + ran1 + ".jpg";
     ranImg2.src = "images/" + ran2 + ".jpg";
+    updateLinks();
     dice.addEventListener('mouseover', () => {
       main_Con.style.color = '#2D313B';
       main_Con.style.backgroundColor = '#212630';
@@ -63,13 +74,12 @@
       if (rotate) {
         ran1 = Math.floor(Math.random() * 4);
         ran2 = Math.floor(Math.random() * 4);
-        if (ran1 == ran2) {
-          ran1 = Math.floor(Math.random() * 4);
+        while (ran1 === ran2) {
           ran2 = Math.floor(Math.random() * 4);
-          return;
         }
         ranImg1.src = "images/" + ran1 + ".jpg";
         ranImg2.src = "images/" + ran2 + ".jpg";
+        updateLinks();
         img.style.transform = 'rotate(-360deg)';
         rotate = false;
       }

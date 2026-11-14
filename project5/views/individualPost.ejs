@@ -17,23 +17,22 @@
 
     <div class="starmap" id="starmap-<%= post._id %>">
       <% 
+// 随机撒点，星星之间至少隔 minDistance。
+// 原来没有次数上限：前几颗位置不好时后面的放不下，会死循环卡住整个服务器。
+// 现在每轮最多试 200 次，放不下就整轮重来；10 轮都不行就把间距缩小一点再试。
 const generateCoordinates = (count, xRange, yRange, minDistance) => {
-  const coordinates = [];
-
-  while (coordinates.length < count) {
-    const x = Math.random() * (xRange.max - xRange.min) + xRange.min;
-    const y = Math.random() * (yRange.max - yRange.min) + yRange.min;
-    const isValid = coordinates.every(coord => {
-    const distance = Math.sqrt(Math.pow(coord.x - x, 2) + Math.pow(coord.y - y, 2));
-    return distance >= minDistance;
-    });
-
-    if (isValid) {
-      coordinates.push({ x, y });
+  for (let dist = minDistance; ; dist *= 0.9) {
+    for (let round = 0; round < 10; round++) {
+      const coordinates = [];
+      for (let tries = 0; tries < 200 && coordinates.length < count; tries++) {
+        const x = Math.random() * (xRange.max - xRange.min) + xRange.min;
+        const y = Math.random() * (yRange.max - yRange.min) + yRange.min;
+        const isValid = coordinates.every(coord => Math.hypot(coord.x - x, coord.y - y) >= dist);
+        if (isValid) coordinates.push({ x, y });
+      }
+      if (coordinates.length === count) return coordinates;
     }
   }
-
-  return coordinates;
 };
    
       const coordinates = generateCoordinates(5, { min: 15, max: 75 }, { min: 15, max: 75 }, 25);

@@ -39,7 +39,11 @@ body{
     height: 100%;
     transition: background-color 1s ease;
     background-color: #2D313B;
+}
 
+/* 首页图片跳到 /scenarios#xxx 时，给固定导航栏（10vh）留出位置 */
+.main-container[id]{
+    scroll-margin-top: 13vh;
 }
 
 .nav-container{
